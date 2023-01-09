@@ -1,12 +1,12 @@
 #!/bin/zsh
 
 function backuporiginal {
-    mkdir orignaldotfiles
-    cp $HOME/.* orignaldotfiles
+    mkdir $HOME/orignaldotfiles
+    cp $HOME/.* $HOME/orignaldotfiles
 }
 
 function installdotfiles {
-    cp -a dotfilestoinstall/. ~/
+    cp -a dotfilestoinstall/. $HOME/
 }
 
 backuporiginal
