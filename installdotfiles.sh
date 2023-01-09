@@ -2,7 +2,7 @@
 
 function backuporiginal {
     mkdir $HOME/orignaldotfiles
-    cp $HOME/.* $HOME/orignaldotfiles
+    cp -a $HOME/.* $HOME/orignaldotfiles/.
 }
 
 function installdotfiles {
