@@ -70,7 +70,10 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+    battery
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,5 +123,5 @@ unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
 
-# To add current time at EOL
-RPROMPT="[%@]"
+# To add current battery and time at EOL
+RPROMPT="$(battery_pct_prompt) [%@]"
