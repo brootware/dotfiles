@@ -12,6 +12,6 @@ chmod +x installdotfiles.sh
 ./installdotfiles.sh
 ```
 
-The install script will backup all your dotfiles from `~/` directory `originaldotfiles/` folder in case something goes wrong and install all the configurations.
+The install script will backup all your dotfiles from `$HOME` directory to `originaldotfiles/` folder in case something goes wrong and install all the configurations.
 
 This has been tested on wsl2 running on windows 10 and should work on Mac too.
