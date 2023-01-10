@@ -1,0 +1,37 @@
+# windir from wsl alias
+alias windir="cd /mnt/c/Users/Ominb/"
+
+# kubectl alias
+alias k=kubectl
+complete -o default -F __start_kubectl k
+
+# List all files colorized in long format
+# shellcheck disable=SC2139
+alias l="ls -lhF ${colorflag}"
+
+# List all files colorized in long format, including dot files
+# shellcheck disable=SC2139
+alias la="ls -lahF ${colorflag}"
+
+# Get week number
+alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# IP addresses
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias ips="sudo ifconfig -a | grep -o 'inet6\\? \\(addr:\\)\\?\\s\\?\\(\\(\\([0-9]\\+\\.\\)\\{3\\}[0-9]\\+\\)\\|[a-fA-F0-9:]\\+\\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# vhosts
+alias hosts='sudo vim /etc/hosts'
+
+# copy working directory
+alias cwd='pwd | tr -d "\r\n" | clip.exe'
+
+# untar
+alias untar='tar xvf'
+
+# Pipe my public key to my clipboard.
+alias pubkey="more ~/.ssh/id_ed25519.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
