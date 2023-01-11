@@ -1,6 +1,6 @@
 # Open Windows user directory
 WINUSER=$(echo $USER)
-alias winhome="/mnt/c/Users/$WINUSER"
+alias winhome="cd /mnt/c/Users/$WINUSER"
 
 # kubectl alias
 alias k=kubectl
