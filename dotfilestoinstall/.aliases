@@ -1,5 +1,6 @@
-# windir from wsl alias
-alias windir="cd /mnt/c/Users/Ominb/"
+# Open Windows user directory
+WINUSER=$(echo $USER)
+alias winhome="/mnt/c/Users/$WINUSER"
 
 # kubectl alias
 alias k=kubectl

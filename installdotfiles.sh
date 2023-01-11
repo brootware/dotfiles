@@ -9,7 +9,7 @@ function installdotfiles {
     cp -a dotfilestoinstall/. $HOME/
 }
 
-function backupcurrentconfig{
+function backupcurrentconfig {
     cp -a $HOME/.zshrc dotfilestoinstall/.
     cp -a $HOME/.bashrc dotfilestoinstall/.
 }
