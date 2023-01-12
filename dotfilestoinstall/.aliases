@@ -1,6 +1,5 @@
 # Open Windows user directory
-WINUSER=$(echo $USER)
-alias winhome="cd /mnt/c/Users/$WINUSER"
+alias winhome="cd /mnt/c/Users/Ominb"
 
 # kubectl alias
 alias k=kubectl
@@ -43,3 +42,15 @@ alias gc='git commit'
 alias gp='git pull --rebase'
 alias gcam='git commit -am'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+
+# Undo the last commit
+alias uncommit="git reset HEAD~1"
+
+# Open Explorer in current folder
+alias explorer="explorer.exe ."
+
+# Open .zshrc in VSCode
+alias zshconfig="code ~/.zshrc"
+
+# Source .zshrc
+alias zshup="source ~/.zshrc"
