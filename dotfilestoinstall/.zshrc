@@ -38,6 +38,9 @@ RPROMPT="$(battery_pct_prompt) [%@]"
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
+# Sync wsl2 time on startup
+sudo hwclock -s
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
