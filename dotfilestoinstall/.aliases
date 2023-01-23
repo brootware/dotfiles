@@ -54,3 +54,6 @@ alias zshconfig="code ~/.zshrc"
 
 # Source .zshrc
 alias zshup="source ~/.zshrc"
+
+# Sync wsl2 time
+alias wsltsync = "hwclock -s"

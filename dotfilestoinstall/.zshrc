@@ -10,6 +10,34 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
+plugins=(
+    git
+    battery
+)
+
+source $ZSH/oh-my-zsh.sh
+
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+
+# Include alias file (if present) containing aliases for ssh, etc.
+if [ -f ~/.aliases ]
+then
+  source ~/.aliases
+fi
+
+# Colors.
+unset LSCOLORS
+export CLICOLOR=1
+export CLICOLOR_FORCE=1
+
+# To add current battery and time at EOL
+RPROMPT="$(battery_pct_prompt) [%@]"
+
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -70,12 +98,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    battery
-)
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -102,31 +125,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
-export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
 
-# Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.aliases ]
-then
-  source ~/.aliases
-fi
-
-# Git aliases.
-alias gs='git status'
-alias gc='git commit'
-alias gp='git pull --rebase'
-alias gcam='git commit -am'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-
-# Colors.
-unset LSCOLORS
-export CLICOLOR=1
-export CLICOLOR_FORCE=1
-
-# To add current battery and time at EOL
-RPROMPT="$(battery_pct_prompt) [%@]"
-
-# Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
 
