@@ -21,19 +21,10 @@ chmod +x installdotfiles.sh
 Help menu will be shown as below.
 
 ```zsh
-Usage: show_help [-b] [-i] [-c] [-h]
-  -b   Backup original dotfiles
-  -i   Install dotfiles
-  -c   Backup current config
+Usage: show_help [-i] [-s] [-h]
+  -i   Backs up your original dotfiles and installs new ones.
+  -s   Save current dotfiles as new configurations
   -h   Show this help menu
-```
-
-### To back up your original dotfiles
-
-This will back up your original dotfiles in `originaldotfiles/` folder in your home directory.
-
-```zsh
-./installdotfiles.sh -b
 ```
 
 ### To install the dotfiles
@@ -42,6 +33,14 @@ This will install the dotfiles from this repo to your `$HOME/` directory.
 
 ```zsh
 ./installdotfiles.sh -i
+```
+
+### To save the current dotfiles config as new installation files
+
+This will save the current dotfiles as new installation files in `dotfilestoinstall/` directory of the repo.
+
+```zsh
+./installdotfiles.sh -s
 ```
 
 This has been tested on wsl2 running on windows 10 and should work on Mac too.
