@@ -1,19 +1,16 @@
 #!/bin/zsh
 
-function backup_original {
+function install_dotfiles {
     rm -rf $HOME/orignaldotfiles
     mkdir $HOME/orignaldotfiles
     cp -a $HOME/.* $HOME/orignaldotfiles/.
     echo "Current dotfiles have been backed up to originaldotfiles/ folder in home directory."
-}
-
-function install_dotfiles {
     cp -a dotfilestoinstall/. $HOME/
     source ~/.zshrc
     echo "The dotfiles have been installed."
 }
 
-function backup_current_config {
+function save_current_config {
     cp -a $HOME/.zshrc dotfilestoinstall/.
     cp -a $HOME/.bashrc dotfilestoinstall/.
     cp -a $HOME/.aliases dotfilestoinstall/.
@@ -22,10 +19,9 @@ function backup_current_config {
 }
 
 function show_help {
-    echo "Usage: $0 [-b] [-i] [-c] [-h]"
-    echo "  -b   Backup original dotfiles"
-    echo "  -i   Install dotfiles"
-    echo "  -c   Save current dotfiles as new configurations"
+    echo "Usage: $0 [-i] [-s] [-h]"
+    echo "  -i   Backs up your original dotfiles and installs new ones."
+    echo "  -s   Save current dotfiles as new configurations"
     echo "  -h   Show this help menu"
 }
 
@@ -34,11 +30,10 @@ if [ $# -eq 0 ]; then
     exit 0
 fi
 
-while getopts ":bich" opt; do
+while getopts ":ish" opt; do
   case $opt in
-    b) backup_original ;;
     i) install_dotfiles ;;
-    c) backup_current_config ;;
+    s) save_current_config ;;
     h) show_help; exit 0;;
     \?) echo "Invalid option -$OPTARG" ;;
   esac
