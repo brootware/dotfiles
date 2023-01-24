@@ -1,5 +1,7 @@
-# dotfiles
-My personal dotfiles
+# dotfiles 🧰
+
+My personal dotfiles to automate installing all the aliases and zsh configurations on a fresh machine 💻.
+
 
 ## How to use
 
