@@ -44,3 +44,7 @@ This will save the current dotfiles as new installation files in `dotfilestoinst
 ```
 
 This has been tested on wsl2 running on windows 10 and should work on Mac too.
+
+## Windows auto dark mode
+
+You can import the XML configuration files in `win11AutoDarkMode/` folder to window task scheduler to turn on dark mode at 6:30pm and off at 7:00am.
