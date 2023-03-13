@@ -5,7 +5,9 @@ function install_dotfiles {
     mkdir $HOME/orignaldotfiles
     cp -a $HOME/.* $HOME/orignaldotfiles/.
     echo "Current dotfiles have been backed up to originaldotfiles/ folder in home directory."
-    cp -a dotfilestoinstall/. $HOME/
+    ln -s $(pwd)/dotfilestoinstall/.aliases ~/.aliases
+    ln -s $(pwd)/dotfilestoinstall/.bashrc ~/.bashrc
+    ln -s $(pwd)/dotfilestoinstall/.zshrc ~/.zshrc
     source ~/.zshrc
     echo "The dotfiles have been installed."
 }
