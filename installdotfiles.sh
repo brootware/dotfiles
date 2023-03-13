@@ -3,11 +3,15 @@
 function install_dotfiles {
     rm -rf $HOME/orignaldotfiles
     mkdir $HOME/orignaldotfiles
-    cp -a $HOME/.* $HOME/orignaldotfiles/.
+    mv $HOME/.aliases $HOME/orignaldotfiles/.
+    mv $HOME/.bashrc $HOME/orignaldotfiles/.
+    mv $HOME/.zshrc $HOME/orignaldotfiles/.
+    mv $HOME/.gitconfig $HOME/orignaldotfiles/.
     echo "Current dotfiles have been backed up to originaldotfiles/ folder in home directory."
     ln -s $(pwd)/dotfilestoinstall/.aliases ~/.aliases
     ln -s $(pwd)/dotfilestoinstall/.bashrc ~/.bashrc
     ln -s $(pwd)/dotfilestoinstall/.zshrc ~/.zshrc
+    ln -s $(pwd)/dotfilestoinstall/.gitconfig ~/.gitconfig
     source ~/.zshrc
     echo "The dotfiles have been installed."
 }
