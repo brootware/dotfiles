@@ -1,5 +1,5 @@
 # Open Windows user directory
-alias winhome="cd /mnt/c/Users/Ominb"
+alias windir="cd /c/Users/Ominb"
 
 # kubectl alias
 alias k=kubectl
