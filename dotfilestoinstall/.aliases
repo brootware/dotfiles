@@ -5,6 +5,9 @@ alias windir="cd /c/Users/Ominb"
 alias k=kubectl
 complete -o default -F __start_kubectl k
 
+#terraform alias
+alias tf=terraform
+
 if ls --color > /dev/null 2>&1; then 
     colorflag="--color"
 else 
@@ -30,14 +33,25 @@ alias ips="sudo ifconfig -a | grep -o 'inet6\\? \\(addr:\\)\\?\\s\\?\\(\\(\\([0-
 # vhosts
 alias hosts='sudo vim /etc/hosts'
 
-# copy working directory
-alias cwd='pwd | tr -d "\r\n" | clip.exe'
+if [[ $(uname -a) == *"microsoft"* ]]; then     
+    # copy working directory
+    alias cwd='pwd | tr -d "\r\n" | clip.exe'
+    # Pipe my public key to my clipboard.
+    alias pubkey="more ~/.ssh/id_ed25518.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
+    # Open Explorer in current folder
+    alias explorer="explorer.exe ."
+else
+    # copy working directory
+    alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
+    # Pipe my public key to my clipboard.
+    alias pubkey="more ~/.ssh/id_ed25518.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
+    # Open Explorer in current folder
+    alias explorer="nautilus ."
+fi
 
 # untar
 alias untar='tar xvf'
 
-# Pipe my public key to my clipboard.
-alias pubkey="more ~/.ssh/id_ed25519.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
 
 # Git aliases.
 alias gs='git status'
@@ -48,9 +62,6 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 
 # Undo the last commit
 alias uncommit="git reset HEAD~1"
-
-# Open Explorer in current folder
-alias explorer="explorer.exe ."
 
 # Open .zshrc in VSCode
 alias zshconfig="code ~/.zshrc"

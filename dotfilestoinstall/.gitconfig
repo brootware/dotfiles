@@ -12,8 +12,6 @@
   status = auto
 [init]
   defaultBranch = master
-[web]
-  browser = google-chrome
 [push]
   default = simple
 [merge]
