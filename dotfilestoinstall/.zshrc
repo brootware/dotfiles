@@ -18,7 +18,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
-export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+export PATH="$PATH:/c/Program Files/Oracle/VirtualBox"
 
 # Include alias file (if present) containing aliases for ssh, etc.
 if [ -f ~/.aliases ]
