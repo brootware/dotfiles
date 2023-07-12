@@ -5,43 +5,29 @@ My personal dotfiles to automate installing all the aliases and zsh configuratio
 
 ## How to use
 
-Clone the repo. 
-
-```zsh 
-git clone https://github.com/brootware/dotfiles.git && cd dotfiles
-```
-
-Run the installation script.
+Configure git author details
 
 ```zsh
-chmod +x installdotfiles.sh
-./installdotfiles.sh
-```
-
-Help menu will be shown as below.
-
-```zsh
-Usage: show_help [-i] [-s] [-h]
-  -i   Backs up your original dotfiles and installs new ones.
-  -s   Save current dotfiles as new configurations
-  -h   Show this help menu
+git config -f ~/.gitlocal user.email "email@yoursite.com"
+git config -f ~/.gitlocal user.name "Name Lastname"
 ```
 
 ### To install the dotfiles
 
 This will install the dotfiles from this repo to your `$HOME/` directory.
+Run the installation script.
 
 ```zsh
-./installdotfiles.sh -i
+# Clone dotfiles repo
+git clone https://github.com/brootware/dotfiles.git $HOME/.dotfiles
+
+# Go to the dotfiles directory
+cd $HOME/.dotfiles
+
+# Install dotfiles
+./install
 ```
 
-### To save the current dotfiles config as new installation files
-
-This will save the current dotfiles as new installation files in `dotfilestoinstall/` directory of the repo.
-
-```zsh
-./installdotfiles.sh -s
-```
 
 This has been tested on wsl2 running on windows 10 and should work on Mac too.
 
