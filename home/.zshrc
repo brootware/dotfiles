@@ -117,11 +117,11 @@ zstyle ':omz:plugins:nvm' autoload true
 # ------------------------------------------------------------------------------
 
 # Shell plugins
-eval "$(sheldon source)"
-# Per-directory configs
-if command -v direnv >/dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
-fi
+# eval "$(sheldon source)"
+# # Per-directory configs
+# if command -v direnv >/dev/null 2>&1; then
+#   eval "$(direnv hook zsh)"
+# fi
 
 # ------------------------------------------------------------------------------
 # Overrides
