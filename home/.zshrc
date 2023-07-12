@@ -128,12 +128,12 @@ zstyle ':omz:plugins:nvm' autoload true
 # ------------------------------------------------------------------------------
 
 # Sourcing all zsh files from $DOTFILES/custom
-custom_files=($(find $DOTFILES/custom -type f -name "*.zsh"))
-if [[ "${#custom_files[@]}" -gt 0 ]]; then
-  for file in "${custom_files[@]}"; do
-    source "$file"
-  done
-fi
+# custom_files=($(find $DOTFILES/custom -type f -name "*.zsh"))
+# if [[ "${#custom_files[@]}" -gt 0 ]]; then
+#   for file in "${custom_files[@]}"; do
+#     source "$file"
+#   done
+# fi
 
 # Source local configuration
 if [[ -f "$HOME/.zshlocal" ]]; then
