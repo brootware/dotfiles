@@ -24,12 +24,6 @@
     ~/.gitconfig: 
       force: true
       path: home/.gitconfig
-    ~/.lscolors: 
-      force: true
-      path: home/.lscolors
-    ~/.smartdots: 
-      force: true
-      path: home/.smartdots
 
 - shell:
     - description: Installing submodules
