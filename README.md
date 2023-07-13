@@ -18,16 +18,12 @@ This will install the dotfiles from this repo to your `$HOME/` directory.
 Run the installation script.
 
 ```zsh
-# Clone dotfiles repo
-git clone https://github.com/brootware/dotfiles.git $HOME/.dotfiles
-
-# Go to the dotfiles directory
-cd $HOME/.dotfiles
+# Clone dotfiles repo and navigate into it
+git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
 # Install dotfiles
 ./install
 ```
-
 
 This has been tested on wsl2 running on windows 10 and should work on Mac too.
 
