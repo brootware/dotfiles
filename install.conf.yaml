@@ -9,11 +9,27 @@
     - ~/.vim/undo-history
 
 - link:
-    ~/.vimrc: 
-      create: true
-      relink: true
+    ~/.zshrc:
       force: true
-      path: home/vimrc
+      path: home/.zshrc
+    ~/.vimrc: 
+      force: true
+      path: home/.vimrc
+    ~/.aliases: 
+      force: true
+      path: home/.aliases
+    ~/.bashrc: 
+      force: true
+      path: home/.bashrc
+    ~/.gitconfig: 
+      force: true
+      path: home/.gitconfig
+    ~/.lscolors: 
+      force: true
+      path: home/.lscolors
+    ~/.smartdots: 
+      force: true
+      path: home/.smartdots
 
 - shell:
     - description: Installing submodules
