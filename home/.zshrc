@@ -48,7 +48,6 @@ export TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E
 # ------------------------------------------------------------------------------
 # Oh My Zsh
 # ------------------------------------------------------------------------------
-ZSH_DISABLE_COMPFIX=true
 
 plugins=(
   history-substring-search
