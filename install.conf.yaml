@@ -5,16 +5,15 @@
 
 - clean: ['~']
 
+- create:
+    - ~/.vim/undo-history
+
 - link:
-    ~/:
-      glob: true
-      path: home/.*
+    ~/.vimrc: 
       create: true
       relink: true
       force: true
-
-- create:
-    - ~/.config
+      path: home/vimrc
 
 - shell:
     - description: Installing submodules

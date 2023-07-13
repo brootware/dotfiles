@@ -34,7 +34,6 @@ alias get="curl -O -L"
 
 # kubectl alias
 alias k=kubectl
-complete -o default -F __start_kubectl k
 
 #terraform alias
 alias tf=terraform

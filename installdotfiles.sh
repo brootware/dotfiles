@@ -6,6 +6,7 @@ function install_dotfiles {
     mv $HOME/.aliases $HOME/orignaldotfiles/.
     mv $HOME/.bashrc $HOME/orignaldotfiles/.
     mv $HOME/.zshrc $HOME/orignaldotfiles/.
+    mv $HOME/.vimrc $HOME/orignaldotfiles/.
     mv $HOME/.gitconfig $HOME/orignaldotfiles/.
     mv $HOME/.lscolors $HOME/orignaldotfiles/.
     mv $HOME/.smartdots $HOME/orignaldotfiles/.
@@ -13,6 +14,7 @@ function install_dotfiles {
     ln -s $(pwd)/home/.aliases ~/.aliases
     ln -s $(pwd)/home/.bashrc ~/.bashrc
     ln -s $(pwd)/home/.zshrc ~/.zshrc
+    ln -s $(pwd)/home/.vimrc ~/.vimrc
     ln -s $(pwd)/home/.gitconfig ~/.gitconfig
     ln -s $(pwd)/home/.lscolors ~/.lscolors
     ln -s $(pwd)/home/.smartdots ~/.smartdots
@@ -22,6 +24,7 @@ function install_dotfiles {
 
 function save_current_config {
     cp -a $HOME/.zshrc home/.
+    cp -a $HOME/.vimrc home/.
     cp -a $HOME/.bashrc home/.
     cp -a $HOME/.aliases home/.
     cp -a $HOME/.gitconfig home/.
