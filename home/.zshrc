@@ -17,11 +17,6 @@ export LANGUAGE=en_US.UTF-8
 # Do not override files using `>`, but it's still possible using `>!`
 set -o noclobber
 
-# Extend $NODE_PATH
-if [ -d ~/.npm-global ]; then
-  export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
-fi
-
 # Default pager
 export PAGER='less'
 
@@ -64,24 +59,16 @@ plugins=(
   history-substring-search
   battery
   git
-  npm
-  yarn
-  nvm
   sudo
   extract
   ssh-agent
   gpg-agent
-  macos
   gh
   vscode
   common-aliases
   command-not-found
   docker
-  battery
 )
-
-# Autoload node version when changing cwd
-zstyle ':omz:plugins:nvm' autoload true
 
 # ------------------------------------------------------------------------------
 # Dependencies
