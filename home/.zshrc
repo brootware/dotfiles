@@ -9,11 +9,6 @@
 # Environment
 # ------------------------------------------------------------------------------
 
-# Locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-
 # Do not override files using `>`, but it's still possible using `>!`
 set -o noclobber
 
