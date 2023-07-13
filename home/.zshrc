@@ -136,8 +136,10 @@ if [[ "${#custom_files[@]}" -gt 0 ]]; then
 fi
 
 # Source local configuration
-if [[ -f "$HOME/.zshlocal" ]]; then
-  source "$HOME/.zshlocal"
+# Include alias file (if present) containing aliases for ssh, etc.
+if [ -f ~/.aliases ]
+then
+  source ~/.aliases
 fi
 
 # ------------------------------------------------------------------------------
