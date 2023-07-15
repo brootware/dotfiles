@@ -201,5 +201,3 @@ insteadOf = "gist:"
 [init]
 
 defaultBranch = main
-[user]
-	name = brootware
