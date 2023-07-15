@@ -8,15 +8,21 @@ My personal dotfiles to automate installing all the aliases and zsh configuratio
 Configure git author details
 
 ```zsh
-git config -f ~/.gitlocal user.email "email@yoursite.com"
-git config -f ~/.gitlocal user.name "Name Lastname"
+git config global user.email "email@yoursite.com"
+git config global user.name "Name Lastname"
 ```
 
 ### To install the dotfiles
 
-This will install the dotfiles from this repo to your `$HOME/` directory.
+This will install the dotfiles from this repo to your `$HOME/` directory after making a backup.
 Run the bootstrap installation script.
 
+```zsh
+curl https://raw.githubusercontent.com/brootware/dotfiles/main/bootstrap.sh > bootstrap.sh && chmod +x bootstrap.sh
+./bootstrap.sh -i
+```
+
+OR, you can download the git repo and install as below.
 
 ```zsh
 # Clone dotfiles repo and navigate into it
