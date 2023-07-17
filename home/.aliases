@@ -14,11 +14,7 @@ alias q="~ && clear"
 
 # Commands Shortcuts
 alias e="$EDITOR"
-alias -- +x='chmod +x'
 alias x+='chmod +x'
-
-# Quick jump to dotfiles
-alias dotfiles="code $DOTFILES"
 
 # Quick reload of zsh environment
 alias zshup="source ~/.zshrc"
@@ -38,9 +34,9 @@ alias k=kubectl
 #terraform alias
 alias tf=terraform
 
-if ls --color > /dev/null 2>&1; then 
+if ls --color >/dev/null 2>&1; then
     colorflag="--color"
-else 
+else
     colorflag="-G"
 fi
 
@@ -82,7 +78,7 @@ alias wsltsync="sudo hwclock -s"
 # Open Windows user directory
 alias windir="cd /c/Users/Ominb"
 
-if [[ $(uname -a) == *"microsoft"* ]]; then     
+if [[ $(uname -a) == *"microsoft"* ]]; then
     # copy working directory
     alias cwd='pwd | tr -d "\r\n" | clip.exe'
     # Pipe my public key to my clipboard.
