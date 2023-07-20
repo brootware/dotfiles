@@ -42,7 +42,7 @@ export LESS="${less_opts[*]}"
 # Default editor for local and remote sessions
 if [[ -n "$SSH_CONNECTION" ]]; then
   # on the server
-  if [ command -v vim >/dev/null 2>&1 ]; then
+  if [ command -v vim ] >/dev/null 2>&1; then
     export EDITOR='vim'
   else
     export EDITOR='vi'
@@ -108,10 +108,12 @@ export PATH="$HOME/gems/bin:$PATH"
 
 # Source local configuration
 # Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.aliases ]
-then
+if [ -f ~/.aliases ]; then
   source ~/.aliases
 fi
+
+# add scripts in /opt/ directory to execute from anywhere
+export PATH=$PATH:/opt
 
 # ------------------------------------------------------------------------------
 
