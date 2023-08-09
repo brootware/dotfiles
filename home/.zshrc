@@ -114,8 +114,13 @@ fi
 
 # add scripts in /opt/ directory to execute from anywhere
 export PATH=$PATH:/opt
+export PATH=$PATH:~/.local/bin
+
+# Use virtualbox as default provider for vagrant
+export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 # ------------------------------------------------------------------------------
 
 # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
