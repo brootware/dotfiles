@@ -121,3 +121,8 @@ export PATH="$HOME/gems/bin:$PATH"
 
 # add scripts in /opt/ directory to execute from anywhere
 export PATH=$PATH:/opt
+export PATH=$PATH:~/.local/bin
+
+# Use virtualbox as default provider for vagrant
+export VAGRANT_DEFAULT_PROVIDER=virtualbox
+
