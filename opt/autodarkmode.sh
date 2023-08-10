@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Add this in crontab -e
+# 40 18 * * * /opt/autodarkmode.sh
+# 0 7 * * * /opt/autodarkmode.sh
+
  
 function set_light_mode () {
     echo "setting light mode"
