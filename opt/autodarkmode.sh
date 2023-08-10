@@ -19,7 +19,7 @@ case "$1" in
         ;;
     *)
         light_time="0655"
-        dark_time="1900"
+        dark_time="1830"
         d="$(date +"%H%M")"
 
         if [ "$d" -ge "$light_time" ] && [ "$d" -lt "$dark_time" ]; then
