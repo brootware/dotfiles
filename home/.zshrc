@@ -72,6 +72,7 @@ plugins=(
   common-aliases
   command-not-found
   docker
+  zsh-autosuggestions
 )
 
 # ------------------------------------------------------------------------------
