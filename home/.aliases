@@ -68,42 +68,30 @@ alias uncommit="git reset HEAD~1"
 # Open .zshrc in VSCode
 alias zshconfig="code ~/.zshrc"
 
-# Router IP address
-# Router IP address
 # Check the operating system
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux specific commands
-    alias routerip="ip route | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS specific commands
-    alias routerip="netstat -nr | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
-else
-    echo "Unsupported operating system: $OSTYPE. Could not find router gateway"
-    exit 1
-fi
-
-#################################################################################################################################
-################################################ wsl 2 specific aliases ########################################################
-#################################################################################################################################
-
-# Sync wsl2 time
-alias wsltsync="sudo hwclock -s"
-
-# Open Windows user directory
-alias windir="cd /c/Users/Ominb"
-
-if [[ $(uname -a) == *"microsoft"* ]]; then
-    # copy working directory
+OSKIND=$(uname -a)
+if [[ "$OSKIND" == *"microsoft"* ]]; then
+    # Sync wsl2 time
+    alias wsltsync="sudo hwclock -s"
     alias cwd='pwd | tr -d "\r\n" | clip.exe'
     # Pipe my public key to my clipboard.
     alias pubkey="more ~/.ssh/id_ed25518.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="explorer.exe ."
-else
+elif [[ "$OSKIND" == *"linux-gnu"* ]]; then
+    # Linux specific commands
+    # Router IP address
+    alias routerip="ip route | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
     # copy working directory
     alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
     # Pipe my public key to my clipboard.
     alias pubkey="more ~/.ssh/id_ed25518.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="nautilus ."
+elif [[ "$OSKIND" == *"darwin"* ]]; then
+    # macOS specific commands
+    alias routerip="netstat -nr | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
+else
+    echo "Alias has unsupported operating system: $OSTYPE."
+    exit 1
 fi
