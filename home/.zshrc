@@ -120,6 +120,9 @@ export PATH=$PATH:~/.local/bin
 # Use virtualbox as default provider for vagrant
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
+# added path for go binary
+export PATH=$PATH:/usr/local/go/bin
+
 # ------------------------------------------------------------------------------
 
 # Fig post block. Keep at the bottom of this file.
