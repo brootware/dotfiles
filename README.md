@@ -18,7 +18,7 @@ This will install the dotfiles from this repo to your `$HOME/` directory after m
 Ensure you installed `curl` and `git` first and run the bootstrap installation script.
 
 ```zsh
-sudo apt install curl && git
+sudo apt install curl git -y
 curl https://raw.githubusercontent.com/brootware/dotfiles/main/bootstrap.sh > bootstrap.sh && chmod +x bootstrap.sh
 ./bootstrap.sh -i
 ```
