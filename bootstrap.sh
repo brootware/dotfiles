@@ -14,7 +14,7 @@ function install_dotfiles {
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
   # Clone dotfiles repo and navigate into it
-  git clone https://github.com/brootware/dotfiles.git && cd dotfiles
+  git clone https://github.com/brootware/dotfilesmini.git && cd dotfilesmini
 
   OSKIND=$(uname -a)
   if [[ "$OSKIND" == *"ubuntu"* ]]; then
