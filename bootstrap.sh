@@ -10,9 +10,6 @@ function install_dotfiles {
   mv $HOME/.gitconfig $HOME/orignaldotfiles/.
   echo "Current dotfiles have been backed up to originaldotfiles/ folder in home directory."
 
-  # Clone zsh-autosuggestion repo into local zsh plugin directory for use
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
   # Clone dotfiles repo and navigate into it
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
@@ -28,6 +25,9 @@ function install_dotfiles {
     echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu and Mac OS"
     exit 1
   fi
+
+  # Clone zsh-autosuggestion repo into local zsh plugin directory for use
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
   # Install dotfiles
   ./install
