@@ -18,6 +18,8 @@ function install_dotfiles {
     sudo apt-get update
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/ubuntu_setup.yml --ask-become-pass
+    # Install ohmyzsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   elif [[ "$OSKIND" == *"Darwin"* ]]; then
     brew install ansible
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
