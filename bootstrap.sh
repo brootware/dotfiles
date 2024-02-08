@@ -17,7 +17,7 @@ function install_dotfiles {
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
   OSKIND=$(uname -a)
-  if [[ "$OSKIND" == *"linux-gnu"* ]]; then
+  if [[ "$OSKIND" == *"ubuntu"* ]]; then
     sudo apt-get update
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/ubuntu_setup.yml --ask-become-pass
@@ -25,7 +25,7 @@ function install_dotfiles {
     brew install ansible
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
   else
-    echo "Alias has unsupported operating system: $OSKIND. This installation is only available on Ubuntu and Mac OS"
+    echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu and Mac OS"
     exit 1
   fi
 
