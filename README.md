@@ -18,7 +18,7 @@ This will install the dotfiles from this repo to your `$HOME/` directory after m
 Run the bootstrap installation script.
 
 ```zsh
-curl https://raw.githubusercontent.com/brootware/dotfilesmini/main/bootstrap.sh > bootstrap.sh && chmod +x bootstrap.sh
+curl https://raw.githubusercontent.com/brootware/dotfiles/main/bootstrap.sh > bootstrap.sh && chmod +x bootstrap.sh
 ./bootstrap.sh -i
 ```
 
