@@ -1,0 +1,45 @@
+---
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Get my user
+      ansible.builtin.set_fact:
+        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+    - name: Install ubuntu apt packages
+      ansible.builtin.package:
+        state: present
+        name:
+          - zsh
+          - htop
+          - python3-poetry
+          - ripgrep
+          - fd-find
+          - solaar
+          - logiops
+          - gnome-shell-extensions
+          - earlyoom
+          - virtualbox
+          - vagrant
+
+    - name: Install snap packages
+      community.general.snap:
+        state: present
+        classic: true
+        name:
+          - chezmoi
+          - code
+          - deja-dup
+          - telegram-desktop
+          - nvim
+
+    - name: Change default shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        shell: /usr/bin/zsh
+
+
