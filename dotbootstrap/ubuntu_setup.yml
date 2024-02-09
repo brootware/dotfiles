@@ -37,9 +37,33 @@
           - telegram-desktop
           - nvim
 
-    - name: Change default shell to zsh
-      ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
-        shell: /usr/bin/zsh
+    # required by the OMZ plugin zsh-interactive-cd
+    - name: Install fzf (command-line fuzzy finder)
+      ansible.builtin.package:
+        state: present
+        name: fzf
+
+    - name: Install Oh My Zsh # noqa: latest
+      ansible.builtin.git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: ~/.oh-my-zsh
+        depth: 1
+
+    - name: Install zsh-autosuggestions plugin # noqa: latest
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        depth: 1
+
+    - name: Install zsh-syntax-highlighting plugin # noqa: latest
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        depth: 1
+ 
+    # - name: Change default shell to zsh
+    #   ansible.builtin.user:
+    #     name: "{{ remote_regular_user }}"
+    #     shell: /usr/bin/zsh
 
 
