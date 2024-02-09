@@ -15,11 +15,8 @@ function install_dotfiles {
 
   OSKIND=$(uname -a)
   if [[ "$OSKIND" == *"ubuntu"* ]]; then
-    sudo apt-get update
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/ubuntu_setup.yml --ask-become-pass
-    # Install ohmyzsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   elif [[ "$OSKIND" == *"Darwin"* ]]; then
     brew install ansible
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
@@ -27,9 +24,6 @@ function install_dotfiles {
     echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu and Mac OS"
     exit 1
   fi
-
-  # Clone zsh-autosuggestion repo into local zsh plugin directory for use
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
   # Install dotfiles
   ./install
