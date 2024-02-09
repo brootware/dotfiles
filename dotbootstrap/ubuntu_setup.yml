@@ -43,20 +43,14 @@
 
     # Clone zsh-autosuggestion repo into local zsh plugin directory for use
     # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    - name: Install zsh-autosuggestions plugin # noqa: latest
+    - name: Install zsh-autosuggestions plugin
       ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-autosuggestions
+        repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
         dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        depth: 1
+        clone: yes
  
     - name: Install zsh-completions plugin # noqa: latest
       ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-completions
+        repo: "https://github.com/zsh-users/zsh-completions.git"
         dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
-        depth: 1
-    
-    - name: Install zsh-syntax-highlighting plugin # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-        depth: 1
+        clone: yes

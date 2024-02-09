@@ -49,8 +49,18 @@ export TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E
 ZSH_DISABLE_COMPFIX=true
 
 plugins=(
+  history-substring-search
   battery
+  git
+  sudo
+  extract
+  ssh-agent
+  gpg-agent
+  gh
+  vscode
   common-aliases
+  command-not-found
+  docker
   zsh-autosuggestions
 )
 
