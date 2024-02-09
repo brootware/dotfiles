@@ -1,14 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-# ------------------------------------------------------------------------------
-
-#
-# ~/.zshrc
-#
-# ------------------------------------------------------------------------------
-# Environment
-# ------------------------------------------------------------------------------
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -60,35 +49,11 @@ export TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E
 ZSH_DISABLE_COMPFIX=true
 
 plugins=(
-  history-substring-search
   battery
-  git
-  sudo
-  extract
-  ssh-agent
-  gpg-agent
-  gh
-  vscode
   common-aliases
-  command-not-found
-  docker
   zsh-autosuggestions
 )
 
-# ------------------------------------------------------------------------------
-# Dependencies
-# ------------------------------------------------------------------------------
-
-# Shell plugins
-# eval "$(sheldon source)"
-# # Per-directory configs
-# if command -v direnv >/dev/null 2>&1; then
-#   eval "$(direnv hook zsh)"
-# fi
-
-# ------------------------------------------------------------------------------
-# Overrides
-# ------------------------------------------------------------------------------
 
 source $ZSH/oh-my-zsh.sh
 
@@ -122,9 +87,3 @@ export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 # added path for go binary
 export PATH=$PATH:/usr/local/go/bin
-
-# ------------------------------------------------------------------------------
-
-# Fig post block. Keep at the bottom of this file.
-# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-
