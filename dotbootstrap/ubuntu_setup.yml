@@ -10,6 +10,10 @@
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 
+    - name: Show who you are
+      ansible.builtin.debug:
+        msg: "Hello {{ remote_regular_user }}!"
+
     - name: Install ubuntu apt packages
       ansible.builtin.package:
         state: present
@@ -24,6 +28,7 @@
           - earlyoom
           - virtualbox
           - vagrant
+          - fzf
 
     - name: Install snap packages
       community.general.snap:
@@ -35,36 +40,3 @@
           - deja-dup
           - telegram-desktop
           - nvim
-
-    # required by the OMZ plugin zsh-interactive-cd
-    - name: Install zsh and fzf (command-line fuzzy finder)
-      ansible.builtin.package:
-        state: present
-        name:
-          - zsh
-          - fzf
-
-    - name: Install Oh My Zsh # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/ohmyzsh/ohmyzsh.git
-        dest: ~/.oh-my-zsh
-        depth: 1
-
-    - name: Install zsh-autosuggestions plugin # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-autosuggestions
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        depth: 1
-
-    - name: Install zsh-syntax-highlighting plugin # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-        depth: 1
- 
-    - name: Change default shell to zsh
-      ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
-        shell: /usr/bin/zsh
-
-

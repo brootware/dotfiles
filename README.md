@@ -12,18 +12,24 @@ git config --global user.email "email@yoursite.com"
 git config --global user.name "Name Lastname"
 ```
 
+Install Zsh and OhMyZsh
+
+```zsh
+sudo apt install zsh curl git -y
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
 ### To install the dotfiles
 
 This will install the dotfiles from this repo to your `$HOME/` directory after making a backup.
 Ensure you installed `curl` and `git` first and run the bootstrap installation script.
 
 ```zsh
-sudo apt install curl git -y
 curl https://raw.githubusercontent.com/brootware/dotfiles/main/bootstrap.sh > bootstrap.sh && chmod +x bootstrap.sh
 ./bootstrap.sh -i
 ```
 
-OR, you can download the git repo and install as below.
+OR, you can download the git repo and install as instructed below.
 
 ```zsh
 # Clone dotfiles repo and navigate into it
