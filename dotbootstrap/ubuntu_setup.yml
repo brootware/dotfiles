@@ -14,7 +14,7 @@
       ansible.builtin.debug:
         msg: "Hello {{ remote_regular_user }}!"
 
-    - name: Install ubuntu apt packages
+    - name: Install personalised ubuntu apt packages
       ansible.builtin.package:
         state: present
         name:
@@ -30,7 +30,7 @@
           - vagrant
           - fzf
 
-    - name: Install snap packages
+    - name: Install personalised snap packages
       community.general.snap:
         state: present
         classic: true
@@ -40,3 +40,23 @@
           - deja-dup
           - telegram-desktop
           - nvim
+
+    # Clone zsh-autosuggestion repo into local zsh plugin directory for use
+    # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    - name: Install zsh-autosuggestions plugin # noqa: latest
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        depth: 1
+ 
+    - name: Install zsh-completions plugin # noqa: latest
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-completions
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
+        depth: 1
+    
+    - name: Install zsh-syntax-highlighting plugin # noqa: latest
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        depth: 1
