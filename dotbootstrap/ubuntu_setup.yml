@@ -14,7 +14,6 @@
       ansible.builtin.package:
         state: present
         name:
-          - zsh
           - htop
           - python3-poetry
           - ripgrep
@@ -38,10 +37,12 @@
           - nvim
 
     # required by the OMZ plugin zsh-interactive-cd
-    - name: Install fzf (command-line fuzzy finder)
+    - name: Install zsh and fzf (command-line fuzzy finder)
       ansible.builtin.package:
         state: present
-        name: fzf
+        name:
+          - zsh
+          - fzf
 
     - name: Install Oh My Zsh # noqa: latest
       ansible.builtin.git:
@@ -61,9 +62,9 @@
         dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
         depth: 1
  
-    # - name: Change default shell to zsh
-    #   ansible.builtin.user:
-    #     name: "{{ remote_regular_user }}"
-    #     shell: /usr/bin/zsh
+    - name: Change default shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        shell: /usr/bin/zsh
 
 
