@@ -18,7 +18,7 @@ function install_dotfiles {
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
   OSKIND=$(uname -a)
-  if [[ "$OSKIND" == *"ubuntu"* ]]; then
+  if [[ "$OSKIND" == *"Ubuntu"* ]]; then
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/ubuntu_setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"Darwin"* ]]; then
