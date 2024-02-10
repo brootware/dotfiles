@@ -56,10 +56,8 @@ plugins=(
   extract
   ssh-agent
   gpg-agent
-  gh
   vscode
   common-aliases
-  command-not-found
   docker
   zsh-autosuggestions
 )
@@ -69,11 +67,6 @@ source $ZSH/oh-my-zsh.sh
 
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
-
-# Colors.
-unset LSCOLORS
-export CLICOLOR=1
-export CLICOLOR_FORCE=1
 
 # To add current battery and time at EOL
 RPROMPT="$(battery_pct_prompt) [%@]"

@@ -20,6 +20,7 @@
         name:
           - htop
           - python3-poetry
+          - python3-pygments
           - ripgrep
           - fd-find
           - solaar
