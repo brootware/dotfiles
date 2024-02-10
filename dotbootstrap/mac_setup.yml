@@ -13,3 +13,18 @@
     - name: Display operating system
       debug:
         msg: "Hello! World!"
+
+    - name: Install minimal homebrew packages
+      ansible.community.homebrew:
+        state: present
+        name:
+          - zsh
+          - curl
+          - htop
+          - python3
+          - pygments
+          - ripgrep
+          - ffind
+          - fd
+          - fzf
+
