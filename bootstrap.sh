@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 function install_dotfiles {
   rm -rf $HOME/orignaldotfiles
@@ -24,6 +24,7 @@ function install_dotfiles {
   elif [[ "$OSKIND" == *"Darwin"* ]]; then
     brew install ansible
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
     echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu and Mac OS"
     exit 1
