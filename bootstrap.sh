@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function install_dotfiles {
   rm -rf $HOME/orignaldotfiles
