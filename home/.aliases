@@ -30,8 +30,11 @@ alias k=kubectl
 # terraform alias
 alias tf=terraform
 
-# ansible alias
-alias av=ansible-vault
+# ansible aliases
+alias avt=ansible-vault
+alias apb=ansible-playbook
+alias agx=ansible-galaxy
+
 
 if ls --color >/dev/null 2>&1; then
     colorflag="--color"
