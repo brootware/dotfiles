@@ -27,8 +27,14 @@ alias get="curl -O -L"
 # kubectl alias
 alias k=kubectl
 
-#terraform alias
+# terraform alias
 alias tf=terraform
+
+# ansible aliases
+alias avt=ansible-vault
+alias apb=ansible-playbook
+alias agx=ansible-galaxy
+
 
 if ls --color >/dev/null 2>&1; then
     colorflag="--color"
