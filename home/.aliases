@@ -71,7 +71,7 @@ alias uncommit="git reset HEAD~1"
 alias zshconfig="code ~/.zshrc"
 
 # Check the operating system
-OSKIND=$(uname -a)
+OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
 if [[ "$OSKIND" == *"microsoft"* ]]; then
     # Sync wsl2 time
     alias wsltsync="sudo hwclock -s"
@@ -80,8 +80,8 @@ if [[ "$OSKIND" == *"microsoft"* ]]; then
     alias pubkey="more ~/.ssh/id_ed25518.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="explorer.exe ."
-elif [[ "$OSKIND" == *"Linux"* ]]; then
-    # Linux specific commands
+elif [[ "$OSKIND" == *"Ubuntu"* ]]; then
+    # Ubuntu specific commands
     # Router IP address
     alias routerip="ip route | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
     # copy working directory
@@ -90,7 +90,16 @@ elif [[ "$OSKIND" == *"Linux"* ]]; then
     alias pubkey="more ~/.ssh/id_ed25518.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="nautilus ."
+elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
+    # Linux mint specific commands
+    alias explorer="nemo ."
     alias code="flatpak run com.visualstudio.code "
+    # Router IP address
+    alias routerip="ip route | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
+    # copy working directory
+    alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
+    # Pipe my public key to my clipboard.
+    alias pubkey="more ~/.ssh/id_ed25518.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
 elif [[ "$OSKIND" == *"Darwin"* ]]; then
     # macOS specific commands
     alias routerip="netstat -nr | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
