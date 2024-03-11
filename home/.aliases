@@ -70,6 +70,11 @@ alias uncommit="git reset HEAD~1"
 # Open .zshrc in VSCode
 alias zshconfig="code ~/.zshrc"
 
+if [[ $(uname) == *Darwin* ]]; then
+    # macOS specific commands
+    alias routerip="netstat -nr | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
+fi
+
 # Check the operating system
 OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
 if [[ "$OSKIND" == *"microsoft"* ]]; then
@@ -100,9 +105,6 @@ elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
     alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
     # Pipe my public key to my clipboard.
     alias pubkey="more ~/.ssh/id_ed25518.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
-elif [[ "$OSKIND" == *"Darwin"* ]]; then
-    # macOS specific commands
-    alias routerip="netstat -nr | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
 else
     echo "Alias has unsupported operating system: $OSKIND."
 fi
