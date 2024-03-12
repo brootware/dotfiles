@@ -17,13 +17,21 @@ function install_dotfiles {
   # Clone dotfiles repo and navigate into it
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
-  OSKIND=$(uname -a)
+  if [[ $(uname) == *Darwin* ]]; then
+    # macOS specific
+    brew install ansible
+    ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
+
+  # Check the operating system
+  OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
   if [[ "$OSKIND" == *"Ubuntu"* ]]; then
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/ubuntu_setup.yml --ask-become-pass
-  elif [[ "$OSKIND" == *"Darwin"* ]]; then
-    brew install ansible
-    ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
+  elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
+    sudo apt-get install -y ansible
+    ansible-playbook dotbootstrap/mint_setup.yml --ask-become-pass 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
     echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu and Mac OS"
