@@ -26,7 +26,6 @@ function install_dotfiles {
   elif [[ "$OSKIND" == *"Linux"* ]]; then
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/linux_setup.yml --ask-become-pass
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
     echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint and Mac OS"
     exit 1
