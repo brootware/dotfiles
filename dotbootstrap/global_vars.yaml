@@ -1,0 +1,24 @@
+---
+flatpaks:
+  - com.visualstudio.code
+  - org.signal.Signal
+  - org.gnome.DejaDup
+  - org.signal.Signal
+
+snaps:
+  - chezmoi
+  - code
+  - deja-dup
+  - telegram-desktop
+  - nvim
+
+brews:
+  - zsh
+  - curl
+  - htop
+  - python3
+  - pygments
+  - ripgrep
+  - ffind
+  - fd
+  - fzf

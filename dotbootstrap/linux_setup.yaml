@@ -6,6 +6,10 @@
   gather_facts: true
 
   tasks:
+    - name: Include vars of for_vars.yml file.
+      include_vars:
+        file: global_vars.yml
+
     - name: Get my user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
@@ -32,16 +36,21 @@
           - vagrant
           - fzf
 
-    - name: Install personalised flatpak packages
+    - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
         state: present
         method: system
         name: "{{ item }}"
-      with_items:
-        - com.visualstudio.code
-        - org.signal.Signal
-        - org.gnome.DejaDup
-        - org.signal.Signal
+      with_items: "{{ flatpaks }}"
+      register: result
+      ignore_errors: true
+
+    - name: Install personalised snap packages. (Will fail if you are on linux mint and do not have snap package manager installed.)
+      community.general.snap:
+        state: present
+        classic: true
+        name: "{{ item }}"
+      with_items: "{{ snaps }}"
 
     # Clone zsh-autosuggestion repo into local zsh plugin directory for use
     # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

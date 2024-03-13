@@ -6,6 +6,10 @@
   gather_facts: true
 
   tasks:
+    - name: Include vars of for_vars.yml file.
+      include_vars:
+        file: global_vars.yml
+
     - name: Get my user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
@@ -17,14 +21,6 @@
     - name: Install minimal homebrew packages
       ansible.community.homebrew:
         state: present
-        name:
-          - zsh
-          - curl
-          - htop
-          - python3
-          - pygments
-          - ripgrep
-          - ffind
-          - fd
-          - fzf
+        name: "{{ item }}"
+      with_items: "{{ brews }}"
 
