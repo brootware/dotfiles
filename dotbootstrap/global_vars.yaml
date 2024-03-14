@@ -1,6 +1,20 @@
 ---
+apt_packages:
+  - htop
+  - net-tools
+  - python3-poetry
+  - python3-pygments
+  - ripgrep
+  - fd-find
+  - solaar
+  - logiops
+  - gnome-shell-extensions
+  - earlyoom
+  - virtualbox
+  - vagrant
+  - fzf
+
 flatpaks:
-  - com.visualstudio.code
   - org.signal.Signal
   - org.gnome.DejaDup
   - org.signal.Signal
@@ -22,3 +36,7 @@ brews:
   - ffind
   - fd
   - fzf
+
+vscode_version: 863d2581ecda6849923a2118d93a088b0745d9d6
+vscode_deb: code_1.87.2-1709912201_amd64.deb
+vscode_checksum: 3340b2649e486adfde2452418599acb64c1dc3998087d715d244f10302a89b94

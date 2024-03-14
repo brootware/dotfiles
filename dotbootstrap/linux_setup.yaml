@@ -3,52 +3,51 @@
   hosts: localhost
   become: true
   connection: local
-  gather_facts: true
+  gather_facts: false
 
   tasks:
-    - name: Include vars of for_vars.yml file.
+    - name: Include vars of global_vars.yml file.
       include_vars:
-        file: global_vars.yml
+        file: global_vars.yaml
 
-    - name: Get my user
-      ansible.builtin.set_fact:
-        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+    # - name: Get my user
+    #   ansible.builtin.set_fact:
+    #     remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 
-    - name: Show who you are
-      ansible.builtin.debug:
-        msg: "Hello {{ remote_regular_user }}!"
+    # - name: Show who you are
+    #   ansible.builtin.debug:
+    #     msg: "Hello {{ remote_regular_user }}!"
 
     # Clone zsh-autosuggestion repo into local zsh plugin directory for use
     # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    - name: Install zsh-autosuggestions plugin
-      ansible.builtin.git:
-        repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        clone: yes
+    # - name: Install zsh-autosuggestions plugin
+    #   ansible.builtin.git:
+    #     repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+    #     dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    #     clone: yes
  
-    - name: Install zsh-completions plugin # noqa: latest
-      ansible.builtin.git:
-        repo: "https://github.com/zsh-users/zsh-completions.git"
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
-        clone: yes
+    # - name: Install zsh-completions plugin # noqa: latest
+    #   ansible.builtin.git:
+    #     repo: "https://github.com/zsh-users/zsh-completions.git"
+    #     dest: "~/.oh-my-zsh/custom/plugins/zsh-completions"
+    #     clone: yes
 
     - name: Install personalised ubuntu apt packages
       ansible.builtin.package:
         state: present
-        name:
-          - htop
-          - net-tools
-          - python3-poetry
-          - python3-pygments
-          - ripgrep
-          - fd-find
-          - solaar
-          - logiops
-          - gnome-shell-extensions
-          - earlyoom
-          - virtualbox
-          - vagrant
-          - fzf
+        name: "{{ item }}"
+      with_items: "{{ apt_packages }}"
+
+    - name: Download vscode directly from source.
+      get_url:
+        url: "https://vscode.download.prss.microsoft.com/dbazure/download/stable/{{ vscode_version }}/{{ vscode_deb }}"
+        dest: "/opt/{{ vscode_deb }}"
+        checksum: "{{ vscode_checksum }}"
+
+    - name: Install downloaded vscode.
+      ansible.builtin.package:
+        state: present
+        name: "/opt/{{ vscode_deb }}"
 
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
