@@ -41,13 +41,13 @@
     - name: Download vscode directly from source.
       get_url:
         url: "https://vscode.download.prss.microsoft.com/dbazure/download/stable/{{ vscode_version }}/{{ vscode_deb }}"
-        dest: "/opt/{{ vscode_deb }}"
+        dest: "/tmp/{{ vscode_deb }}"
         checksum: "{{ vscode_checksum }}"
 
     - name: Install downloaded vscode.
       ansible.builtin.package:
         state: present
-        name: "/opt/{{ vscode_deb }}"
+        name: "/tmp/{{ vscode_deb }}"
 
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
