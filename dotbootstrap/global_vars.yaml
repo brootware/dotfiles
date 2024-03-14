@@ -1,0 +1,42 @@
+---
+apt_packages:
+  - htop
+  - net-tools
+  - python3-poetry
+  - python3-pygments
+  - ripgrep
+  - fd-find
+  - solaar
+  - logiops
+  - gnome-shell-extensions
+  - earlyoom
+  - virtualbox
+  - vagrant
+  - fzf
+
+flatpaks:
+  - org.signal.Signal
+  - org.gnome.DejaDup
+  - org.signal.Signal
+
+snaps:
+  - chezmoi
+  - code
+  - deja-dup
+  - telegram-desktop
+  - nvim
+
+brews:
+  - zsh
+  - curl
+  - htop
+  - python3
+  - pygments
+  - ripgrep
+  - ffind
+  - fd
+  - fzf
+
+vscode_version: 863d2581ecda6849923a2118d93a088b0745d9d6
+vscode_deb: code_1.87.2-1709912201_amd64.deb
+vscode_checksum: sha256:3340b2649e486adfde2452418599acb64c1dc3998087d715d244f10302a89b94

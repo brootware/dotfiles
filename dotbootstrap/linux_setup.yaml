@@ -1,0 +1,69 @@
+---
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Include vars of global_vars.yml file.
+      include_vars:
+        file: global_vars.yaml
+
+    - name: Get my user
+      ansible.builtin.set_fact:
+        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+    - name: Show who you are
+      ansible.builtin.debug:
+        msg: "Hello {{ remote_regular_user }}!"
+
+    # Clone zsh-autosuggestion repo into local zsh plugin directory for use
+    # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    - name: Install zsh-autosuggestions plugin
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        clone: yes
+ 
+    - name: Install zsh-completions plugin # noqa: latest
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-completions.git"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-completions"
+        clone: yes
+
+    - name: Install personalised ubuntu apt packages
+      ansible.builtin.package:
+        state: present
+        name: "{{ item }}"
+      with_items: "{{ apt_packages }}"
+
+    - name: Download vscode directly from source.
+      get_url:
+        url: "https://vscode.download.prss.microsoft.com/dbazure/download/stable/{{ vscode_version }}/{{ vscode_deb }}"
+        dest: "/tmp/{{ vscode_deb }}"
+        checksum: "{{ vscode_checksum }}"
+
+    - name: Install downloaded vscode.
+      ansible.builtin.apt:
+        state: present
+        deb: "/tmp/{{ vscode_deb }}"
+        update_cache: yes
+
+    - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
+      community.general.flatpak:
+        state: present
+        method: system
+        name: "{{ item }}"
+      with_items: "{{ flatpaks }}"
+      register: result
+      ignore_errors: true
+
+    - name: Install personalised snap packages. (Will fail if you are on linux mint and do not have snap package manager installed.)
+      community.general.snap:
+        state: present
+        classic: true
+        name: "{{ item }}"
+      with_items: "{{ snaps }}"
+      when: result is failed
+      ignore_errors: true
