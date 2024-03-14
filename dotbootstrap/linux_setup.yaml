@@ -48,7 +48,7 @@
       ansible.builtin.package:
         state: present
         name: "/tmp/{{ vscode_deb }}"
-        remote_src: yes
+      become: true
 
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
