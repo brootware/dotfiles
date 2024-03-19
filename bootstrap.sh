@@ -1,6 +1,8 @@
 #!/bin/bash
 
 function install_dotfiles {
+  git config --global user.email "$(whoami)@$(hostname).com" 
+  git config --global user.name "$(whoami)"
   rm -rf $HOME/orignaldotfiles
   mkdir $HOME/orignaldotfiles
   mv $HOME/.aliases $HOME/orignaldotfiles/.
