@@ -5,13 +5,6 @@ My personal dotfiles to automate installing all the aliases and zsh configuratio
 
 ## How to use
 
-Configure git author details
-
-```bash
-git config --global user.email "$(whoami)@$(hostname).com" 
-git config --global user.name "$(whoami)"
-```
-
 Install Zsh and OhMyZsh for Ubuntu
 
 ```bash
