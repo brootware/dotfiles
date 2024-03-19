@@ -13,6 +13,7 @@ apt_packages:
   - virtualbox
   - vagrant
   - fzf
+  - gnome-tweaks
 
 flatpaks:
   - org.signal.Signal
