@@ -8,7 +8,7 @@
   tasks:
     - name: Include vars of global_vars.yml file.
       include_vars:
-        file: global_vars.yaml
+        file: global_vars.yml
 
     - name: Get my user
       ansible.builtin.set_fact:
