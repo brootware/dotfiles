@@ -1,8 +1,6 @@
 #!/bin/bash
 
 function install_dotfiles {
-  git config --global user.email "$(whoami)@$(hostname).com" 
-  git config --global user.name "$(whoami)"
   rm -rf $HOME/orignaldotfiles
   mkdir $HOME/orignaldotfiles
   mv $HOME/.aliases $HOME/orignaldotfiles/.
@@ -35,6 +33,10 @@ function install_dotfiles {
 
   # Install dotfiles
   ./install
+
+  # Set git config author details
+  git config --global user.email "$(whoami)@$(hostname).com" 
+  git config --global user.name "$(whoami)"
 }
 
 function save_current_config {
