@@ -17,7 +17,7 @@ apt_packages:
 flatpaks:
   - org.signal.Signal
   - org.gnome.DejaDup
-  - org.signal.Signal
+  - org.telegram.desktop
 
 snaps:
   - chezmoi
@@ -25,6 +25,10 @@ snaps:
   - deja-dup
   - telegram-desktop
   - nvim
+
+zsh_plugins:
+  - zsh-autosuggestions
+  - zsh-completions
 
 brews:
   - zsh
