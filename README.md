@@ -5,7 +5,7 @@ My personal dotfiles to automate installing all the aliases and zsh configuratio
 
 ## How to use
 
-Install Zsh and OhMyZsh for Ubuntu
+Install Zsh and OhMyZsh for Ubuntu or Debian based distros.
 
 ```bash
 sudo apt install zsh curl git -y
