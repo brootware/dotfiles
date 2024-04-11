@@ -24,10 +24,13 @@ flatpaks:
   - com.github.johnfactotum.Foliate
 
 snaps:
-  - chezmoi
   - code
   - deja-dup
   - telegram-desktop
+  - signal-desktop
+  - whatsie
+  - flameshot
+  - foliate
   - nvim
 
 zsh_plugins:
