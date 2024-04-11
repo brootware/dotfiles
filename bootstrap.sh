@@ -17,18 +17,28 @@ function install_dotfiles {
   # Clone dotfiles repo and navigate into it
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
-  OSKIND=$(uname -a)
+  OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
   if [[ "$OSKIND" == *"Darwin"* ]]; then
     # macOS specific
     brew install ansible
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  elif [[ "$OSKIND" == *"Linux"* ]]; then
+  elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/linux_setup.yml --ask-become-pass
+  elif [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; then
+    # Install dotfiles
+    ./install
+
+    # Set git config author details
+    git config --global user.email "$(whoami)@$(hostname).com" 
+    git config --global user.name "$(whoami)"
   else
-    echo "\n Unsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint and Mac OS"
+    echo -e "\nUnsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint, Mac OS and WSL2."
     exit 1
+  fi
+  else
+    echo -e "\nUnsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint and Mac OS"
   fi
 
   # Install dotfiles
