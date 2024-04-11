@@ -37,9 +37,6 @@ function install_dotfiles {
     echo -e "\nUnsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint, Mac OS and WSL2."
     exit 1
   fi
-  else
-    echo -e "\nUnsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint and Mac OS"
-  fi
 
   # Install dotfiles
   ./install
