@@ -66,3 +66,16 @@
       when: result is failed
       ignore_errors: true
       become: true
+
+    - name: Edit grub to remember last choice of grub OS boot menu.
+      blockinfile:
+        path: /etc/default/grub
+        block: |
+          # Remember last choice of OS boot functionality
+          GRUB_SAVEDEFAULT=true
+        insertafter: EOF
+      become: true
+    
+    - name: Update Grub configuration.
+      command: update-grub
+      become: true
