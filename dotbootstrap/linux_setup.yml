@@ -31,6 +31,7 @@
         state: present
         name: "{{ item }}"
       with_items: "{{ apt_packages }}"
+      ignore_errors: true
       become: true
 
     - name: Download vscode directly from source.
