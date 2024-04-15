@@ -35,10 +35,9 @@
       become: true
 
     - name: Download vscode directly from source.
-      get_url:
-        url: "https://vscode.download.prss.microsoft.com/dbazure/download/stable/{{ vscode_version }}/{{ vscode_deb }}"
+      ansible.builtin.get_url:
+        url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
         dest: "/tmp/{{ vscode_deb }}"
-        checksum: "{{ vscode_checksum }}"
       become: true
       when: ansible_facts['distribution'] == 'Linux Mint'
 
