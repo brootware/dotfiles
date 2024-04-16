@@ -89,11 +89,11 @@
       command: update-grub
       become: true
 
-    - name: Replace UserspaceHID in bluetooth conf to true. To stop idle bluetooth disconnection. https://askubuntu.com/questions/1065335/bluetooth-mouse-constantly-disconnects-and-reconnects
+    - name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
       lineinfile:
         path: /etc/bluetooth/input.conf
-        regexp: '^#UserspaceHID=true'
-        line: 'UserspaceHID=true'
+        regexp: '^#IdleTimeout=30'
+        line: 'IdleTimeout=15'
       become: true
 
     - name: Update bluetooth service configuration.
