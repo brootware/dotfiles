@@ -88,3 +88,14 @@
     - name: Update Grub configuration.
       command: update-grub
       become: true
+
+    - name: Replace UserspaceHID in bluetooth conf to true. To stop idle bluetooth disconnection. https://askubuntu.com/questions/1065335/bluetooth-mouse-constantly-disconnects-and-reconnects
+      lineinfile:
+        path: /etc/bluetooth/input.conf
+        regexp: '^#UserspaceHID=true'
+        line: 'UserspaceHID=true'
+      become: true
+
+    - name: Update bluetooth service configuration.
+      command: systemctl restart bluetooth.service
+      become: true
