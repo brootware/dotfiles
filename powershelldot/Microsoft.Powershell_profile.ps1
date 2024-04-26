@@ -1,11 +1,10 @@
+
+# /etc/host edit equivalent of bash
+function EditHosts { code $env:windir\System32\Drivers\etc\hosts }
+Set-Alias -Name hosts -Value EditHosts
+
 function getpubip {(Invoke-WebRequest -uri "http://ifconfig.me/ip").Content}
-Set-Alias pubip getpubip
-
-function CD32 {set-location c:\windows\system32}
-Set-Alias go32 cd32
-
-function edithost {code c:\windows\system32\drivers\etc\hosts}
-Set-Alias host edithost
+Set-Alias -Name pubip -Value getpubip
 
 function getrouterip {(Get-NetRoute | Where-Object { $_.DestinationPrefix -eq '0.0.0.0/0' }).NextHop}
-Set-Alias routerip getrouterip
+Set-Alias -Name routerip -Value getrouterip
