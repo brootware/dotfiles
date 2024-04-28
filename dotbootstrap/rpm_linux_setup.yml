@@ -37,36 +37,6 @@
       with_items: "{{ packages }}"
       ignore_errors: true
       become: true
-    
-    - name: Download vscode directly from source for fedora.
-      ansible.builtin.get_url:
-        url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64"
-        dest: "/tmp/{{ vscode_rpm }}"
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora'
-
-    - name: Install downloaded vscode.
-      ansible.builtin.dnf:
-        state: present
-        deb: "/tmp/{{ vscode_rpm }}"
-        update_cache: yes
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora'
-
-    - name: Download virtualbox directly from source for fedora.
-      ansible.builtin.get_url:
-        url: "https://download.virtualbox.org/virtualbox/7.0.16/VirtualBox-7.0-7.0.16_162802_fedora36-1.x86_64.rpm"
-        dest: "/tmp/{{ vbox_rpm }}"
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora'
-
-    - name: Install downloaded vscode.
-      ansible.builtin.dnf:
-        state: present
-        deb: "/tmp/{{ vbox_rpm }}"
-        update_cache: yes
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora'
 
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
@@ -77,3 +47,33 @@
       when: ansible_facts['distribution'] == 'Fedora'
       ignore_errors: true
       become: true
+    
+    - name: Download vscode directly from source for fedora.
+      ansible.builtin.get_url:
+        url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64"
+        dest: "/tmp/{{ vscode_rpm }}"
+      become: true
+      when: ansible_facts['distribution'] == 'Fedora'
+
+    - name: Install downloaded vscode.
+      ansible.package:
+        state: present
+        name: "/tmp/{{ vscode_rpm }}"
+        disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
+      become: true
+      when: ansible_facts['distribution'] == 'Fedora'
+
+    - name: Download virtualbox directly from source for fedora.
+      ansible.builtin.get_url:
+        url: "https://download.virtualbox.org/virtualbox/7.0.16/VirtualBox-7.0-7.0.16_162802_fedora36-1.x86_64.rpm"
+        dest: "/tmp/{{ vbox_rpm }}"
+      become: true
+      when: ansible_facts['distribution'] == 'Fedora'
+
+    - name: Install downloaded virtualbox.
+      ansible.package:
+        state: present
+        name: "/tmp/{{ vbox_rpm }}"
+        disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
+      become: true
+      when: ansible_facts['distribution'] == 'Fedora'
