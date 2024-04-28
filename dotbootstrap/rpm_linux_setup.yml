@@ -74,6 +74,6 @@
       ansible.package:
         state: present
         name: "/tmp/{{ vbox_rpm }}"
-        disable_gpg_check: "{{ disable_yum_gpg_check | d(omit) }}"
+        disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
       become: true
       when: ansible_facts['distribution'] == 'Fedora'
