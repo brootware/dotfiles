@@ -30,7 +30,15 @@
       ansible.builtin.package:
         state: present
         name: "{{ item }}"
-      with_items: "{{ apt_packages }}"
+      with_items: "{{ packages }}"
+      ignore_errors: true
+      become: true
+
+    - name: Install personalised fedora dnf packages
+      ansible.builtin.package:
+        state: present
+        name: "{{ item }}"
+      with_items: "{{ packages }}"
       ignore_errors: true
       become: true
 
@@ -39,7 +47,7 @@
         url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
         dest: "/tmp/{{ vscode_deb }}"
       become: true
-      when: ansible_facts['distribution'] == 'Linux Mint'
+      when: ansible_facts['distribution'] == 'Linux Mint' or ansible_facts['distribution'] == 'Fedora Linux'
 
     - name: Install downloaded vscode.
       ansible.builtin.apt:
@@ -47,7 +55,7 @@
         deb: "/tmp/{{ vscode_deb }}"
         update_cache: yes
       become: true
-      when: ansible_facts['distribution'] == 'Linux Mint'
+      when: ansible_facts['distribution'] == 'Linux Mint' or ansible_facts['distribution'] == 'Fedora Linux'
 
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
@@ -55,7 +63,7 @@
         method: system
         name: "{{ item }}"
       with_items: "{{ flatpaks }}"
-      when: ansible_facts['distribution'] == 'Linux Mint'
+      when: ansible_facts['distribution'] == 'Linux Mint' or ansible_facts['distribution'] == 'Fedora Linux'
       ignore_errors: true
       become: true
 

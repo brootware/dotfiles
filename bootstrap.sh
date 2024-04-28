@@ -26,6 +26,9 @@ function install_dotfiles {
   elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
 	  sudo apt-get install -y ansible
 	  ansible-playbook dotbootstrap/linux_setup.yml --ask-become-pass
+  elif [[ "$OSKIND" == *"Fedora"* ]]; then
+	  sudo dnf install -y ansible
+	  ansible-playbook dotbootstrap/linux_setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; then
     # Install dotfiles
     ./install
