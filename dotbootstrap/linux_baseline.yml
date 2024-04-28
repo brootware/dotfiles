@@ -50,7 +50,7 @@
     - name: Update Grub configuration for Fedora.
       command: grub2-mkconfig -o /boot/grub2/grub.cfg
       become: true
-      when: ansible_facts['distribution'] == 'Fedora Linux'
+      when: ansible_facts['distribution'] == 'Fedora'
 
     - name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
       lineinfile:
