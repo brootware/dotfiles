@@ -40,21 +40,6 @@
       become: true
       when: ansible_facts['distribution'] == 'Linux Mint'
 
-    - name: Download virtualbox directly from source for fedora.
-      ansible.builtin.get_url:
-        url: "https://download.virtualbox.org/virtualbox/7.0.16/VirtualBox-7.0-7.0.16_162802_fedora36-1.x86_64.rpm"
-        dest: "/tmp/{{ vbox_rpm }}"
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora Linux'
-
-    - name: Install downloaded vscode.
-      ansible.builtin.dnf:
-        state: present
-        deb: "/tmp/{{ vbox_rpm }}"
-        update_cache: yes
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora Linux'
-
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
         state: present
