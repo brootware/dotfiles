@@ -89,7 +89,7 @@
       become: true
 
     - name: Install downloaded vscode.
-      ansible.package:
+      ansible.builtin.package:
         state: present
         name: "/tmp/{{ vscode_rpm }}"
         disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
