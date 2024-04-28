@@ -16,6 +16,10 @@ packages:
   - gnome-tweaks
   - vim-gui-common
   - vim-runtime
+  - xclip
+  - gns3-server 
+  - gns3-gui
+  - VirtualBox.x86_64
 
 flatpaks:
   - org.signal.Signal
