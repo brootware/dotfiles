@@ -30,6 +30,41 @@
         clone: yes
       with_items: "{{ zsh_plugins }}"
 
+    - name: Replace GRUB_DEFAULT line in /etc/default/grub.
+      lineinfile:
+        path: /etc/default/grub
+        regexp: '^GRUB_DEFAULT='
+        line: 'GRUB_DEFAULT=saved'
+      become: true
+
+    - name: Edit grub to remember last choice of grub OS boot menu.
+      blockinfile:
+        path: /etc/default/grub
+        block: |
+          # Remember last choice of OS boot functionality
+          GRUB_SAVEDEFAULT=true
+        insertafter: EOF
+      become: true
+
+    - name: Update Grub configuration for Fedora.
+      command: grub2-mkconfig -o /boot/grub2/grub.cfg
+      become: true
+
+    - name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
+      lineinfile:
+        path: /etc/bluetooth/input.conf
+        regexp: '^#IdleTimeout=30'
+        line: 'IdleTimeout=15'
+      become: true
+
+    - name: Update bluetooth service configuration.
+      command: systemctl restart bluetooth.service
+      become: true
+
+    - name: Install RPM Fusion repository for virtualbox.
+      command: "dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+      become: true
+
     - name: Install personalised fedora dnf packages
       ansible.builtin.package:
         state: present
@@ -44,7 +79,6 @@
         method: system
         name: "{{ item }}"
       with_items: "{{ flatpaks }}"
-      when: ansible_facts['distribution'] == 'Fedora'
       ignore_errors: true
       become: true
     
@@ -53,7 +87,6 @@
         url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64"
         dest: "/tmp/{{ vscode_rpm }}"
       become: true
-      when: ansible_facts['distribution'] == 'Fedora'
 
     - name: Install downloaded vscode.
       ansible.package:
@@ -61,19 +94,3 @@
         name: "/tmp/{{ vscode_rpm }}"
         disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
       become: true
-      when: ansible_facts['distribution'] == 'Fedora'
-
-    - name: Download virtualbox directly from source for fedora.
-      ansible.builtin.get_url:
-        url: "https://download.virtualbox.org/virtualbox/7.0.16/VirtualBox-7.0-7.0.16_162802_fedora36-1.x86_64.rpm"
-        dest: "/tmp/{{ vbox_rpm }}"
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora'
-
-    - name: Install downloaded virtualbox.
-      ansible.package:
-        state: present
-        name: "/tmp/{{ vbox_rpm }}"
-        disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
-      become: true
-      when: ansible_facts['distribution'] == 'Fedora'
