@@ -12,6 +12,13 @@ sudo apt install zsh curl git -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
+For Red Hat, rpm based distros.
+
+```bash
+sudo dnf install zsh curl git -y
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
 Install Homebrew for MacOS
 
 ```bash
