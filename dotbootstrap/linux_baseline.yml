@@ -25,7 +25,6 @@
         clone: yes
       with_items: "{{ zsh_plugins }}"
 
-
     - name: Replace GRUB_DEFAULT line in /etc/default/grub.
       lineinfile:
         path: /etc/default/grub
