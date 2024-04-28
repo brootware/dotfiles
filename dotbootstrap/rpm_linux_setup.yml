@@ -61,9 +61,10 @@
       command: systemctl restart bluetooth.service
       become: true
 
-    - name: Install RPM Fusion repository for virtualbox.
-      command: "dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+    - name: Install RPM Fusion repositories
       become: true
+      command: dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+      ignore_errors: true
 
     - name: Install personalised fedora dnf packages
       ansible.builtin.package:
