@@ -61,7 +61,17 @@
       command: systemctl restart bluetooth.service
       become: true
 
-    - name: Install personalised fedora dnf packages
+    - name: Edit dnf config to make it faster.
+      blockinfile:
+        path: /etc/dnf/dnf.conf
+        block: |
+          fastestmirror=True
+          max_parallel_downloads=10
+          keepcache=True
+        insertafter: EOF
+      become: true
+
+    - name: Install personalised fedora dnf packages.
       ansible.builtin.package:
         state: present
         name: "{{ item }}"
