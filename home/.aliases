@@ -85,7 +85,7 @@ if [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; th
     alias pubkey="more ~/.ssh/id_ed25519.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="explorer.exe ."
-elif [[ "$OSKIND" == *"Ubuntu"* ]]; then
+elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Fedora"* ]]; then
     # Ubuntu specific commands
     # Router IP address
     alias routerip="ip route | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
