@@ -58,5 +58,4 @@ vscode_deb: code_latest.deb
 vscode_rpm: code_latest.rpm
 # vscode_checksum: sha256:3340b2649e486adfde2452418599acb64c1dc3998087d715d244f10302a89b94
 
-vbox_rpm: vbox_latest.rpm
 value_for_gpg: "yes"
