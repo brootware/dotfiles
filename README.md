@@ -45,6 +45,13 @@ git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 ./install
 ```
 
+### For windows powershell dot aliases
+
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/brootware/dotfiles/main/bootstrap.ps1" -OutFile "bootstrap.ps1"
+& "bootstrap.ps1"
+```
+
 This has been tested on wsl2 running on windows 10 and should work on Mac too.
 
 ## Windows auto dark mode
