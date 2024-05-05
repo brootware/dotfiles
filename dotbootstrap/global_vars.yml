@@ -28,6 +28,7 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - org.flameshot.Flameshot 
   - com.github.johnfactotum.Foliate
+  - org.gnome.Extensions
 
 snaps:
   - code
