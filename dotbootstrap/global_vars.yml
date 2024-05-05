@@ -20,6 +20,7 @@ packages:
   - gns3-server 
   - gns3-gui
   - VirtualBox.x86_64
+  - vim-enhanced
 
 flatpaks:
   - org.signal.Signal
