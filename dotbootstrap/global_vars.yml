@@ -26,10 +26,11 @@ flatpaks:
   - org.signal.Signal
   - org.gnome.DejaDup
   - org.telegram.desktop
-  - com.github.tchx84.Flatseal
-  - org.flameshot.Flameshot 
-  - com.github.johnfactotum.Foliate
   - org.gnome.Extensions
+  - org.flameshot.Flameshot 
+  - com.github.tchx84.Flatseal
+  - com.github.johnfactotum.Foliate
+  - com.ktechpit.whatsie
 
 snaps:
   - code
