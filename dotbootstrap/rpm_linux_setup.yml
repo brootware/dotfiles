@@ -100,3 +100,11 @@
         name: "/tmp/{{ vscode_rpm }}"
         disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
       become: true
+
+    - name: Install needed pipx packages.
+      community.general.pipx:
+        state: present
+        name: "{{ item }}"
+      with_items: "{{ pipx_packages }}"
+      ignore_errors: true
+      become: true
