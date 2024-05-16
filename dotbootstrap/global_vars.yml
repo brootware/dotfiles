@@ -25,6 +25,7 @@ packages:
   - python-devel
   - rust
   - cargo
+  - ksnip
 
 flatpaks:
   - org.signal.Signal
