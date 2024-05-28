@@ -108,3 +108,19 @@
       with_items: "{{ pipx_packages }}"
       ignore_errors: true
       become: true
+
+    - name: Add Brave repository
+      ansible.builtin.shell:
+        cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+      become: true
+
+    - name: Import Brave repository key
+      ansible.builtin.shell:
+        cmd: rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+      become: true
+
+    - name: Install Brave browser
+      ansible.builtin.package:
+        name: brave-browser
+        state: present
+      become: true

@@ -25,14 +25,14 @@ packages:
   - python-devel
   - rust
   - cargo
-  - ksnip
+  - dnf-plugins-core
+  - flameshot
 
 flatpaks:
   - org.signal.Signal
   - org.gnome.DejaDup
   - org.telegram.desktop
   - org.gnome.Extensions
-  - org.flameshot.Flameshot 
   - com.github.tchx84.Flatseal
   - com.github.johnfactotum.Foliate
   - com.ktechpit.whatsie
