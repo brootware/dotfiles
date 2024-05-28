@@ -35,6 +35,7 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - com.github.johnfactotum.Foliate
   - com.ktechpit.whatsie
+  - com.brave.Browser
 
 snaps:
   - code
