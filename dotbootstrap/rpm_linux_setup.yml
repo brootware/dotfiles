@@ -124,3 +124,10 @@
         name: brave-browser
         state: present
       become: true
+
+    - name: Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
+      lineinfile:
+        path: /usr/share/applications/brave-browser.desktop
+        regexp: '^Exec=/usr/bin/brave-browser-stable %U$'
+        line: 'Exec=/usr/bin/brave-browser-stable %U --ozone-platform=wayland --enable-features=TouchpadOverscrollHistoryNavigation'
+      become: true
