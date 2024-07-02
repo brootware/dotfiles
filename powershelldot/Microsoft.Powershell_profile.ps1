@@ -104,3 +104,6 @@ function GetRouterip {(Get-NetRoute | Where-Object { $_.DestinationPrefix -eq '0
 Set-Alias -Name routerip -Value GetRouterip
 
 Set-Alias -Name g -Value "git"
+
+function GoHome { cd ~ }
+Set-Alias -Name home -Value GoHome
