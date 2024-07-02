@@ -7,4 +7,4 @@ Invoke-WebRequest -Uri $downloadUrl -OutFile $pwshFile
 $gitconfigUrl = "https://raw.githubusercontent.com/brootware/dotfiles/main/home/.gitconfig"
 $gitconfigFile = Join-Path -Path $HOME -ChildPath ".gitconfig"
 
-Invoke-WebRequest - Uri $gitconfigUrl -OutFile $gitconfigFile
+Invoke-WebRequest -Uri $gitconfigUrl -OutFile $gitconfigFile
