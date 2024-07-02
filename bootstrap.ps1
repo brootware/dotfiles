@@ -8,3 +8,6 @@ $gitconfigUrl = "https://raw.githubusercontent.com/brootware/dotfiles/main/home/
 $gitconfigFile = Join-Path -Path $HOME -ChildPath ".gitconfig"
 
 Invoke-WebRequest -Uri $gitconfigUrl -OutFile $gitconfigFile
+
+git config --global user.email "$env:USERNAME@$env:COMPUTERNAME.com"
+git config --global user.name $env:USERNAME
