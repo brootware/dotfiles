@@ -34,6 +34,7 @@ alias tf=terraform
 alias avt=ansible-vault
 alias apb=ansible-playbook
 alias agx=ansible-galaxy
+alias ant=ansible-lint
 
 
 if ls --color >/dev/null 2>&1; then
@@ -69,6 +70,10 @@ alias uncommit="git reset HEAD~1"
 
 # Open .zshrc in VSCode
 alias zshconfig="code ~/.zshrc"
+
+# alias python to python3
+alias python=python3
+
 
 if [[ $(uname) == *Darwin* ]]; then
     # macOS specific commands
