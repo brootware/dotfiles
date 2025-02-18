@@ -80,8 +80,13 @@ if [[ $(uname) == *Darwin* ]]; then
     alias routerip="netstat -nr | grep default | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
 fi
 
-# Check the operating system
-OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
+# Try to get OS kind from /etc/os-release
+if [ -f /etc/os-release ]; then
+    OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
+else
+    # Fallback to uname -o if /etc/os-release is not found
+    OSKIND=$(uname -o)
+fi
 if [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; then
     # Sync wsl2 time
     alias wsltsync="sudo hwclock -s"
@@ -109,6 +114,8 @@ elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
     alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
     # Pipe my public key to my clipboard.
     alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
+elif [[ "$OSKIND" == *"Darwin"* ]]; then
+    return 0
 else
     echo "Alias has unsupported operating system: $OSKIND."
 fi
