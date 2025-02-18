@@ -19,14 +19,12 @@ packages:
   - xclip
   - gns3-server 
   - gns3-gui
-  - VirtualBox.x86_64
   - vim-enhanced
   - pipx
   - python-devel
   - rust
   - cargo
   - dnf-plugins-core
-  - flameshot
 
 flatpaks:
   - org.signal.Signal
@@ -60,6 +58,7 @@ brews:
   - ffind
   - fd
   - fzf
+  - pipx
 
 pipx_packages:
   - git+https://github.com/Pennyw0rth/NetExec
