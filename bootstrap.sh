@@ -27,7 +27,9 @@ function install_dotfiles {
 
   if [[ "$OSKIND" == *"Darwin"* ]]; then
     # macOS specific
-    brew install ansible
+    brew install pipx
+    pipx install ansible-core
+    pipx ensurepath
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
