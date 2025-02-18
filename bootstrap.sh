@@ -17,7 +17,14 @@ function install_dotfiles {
   # Clone dotfiles repo and navigate into it
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
 
-  OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
+  # Try to get OS kind from /etc/os-release
+  if [ -f /etc/os-release ]; then
+      OSKIND=$(grep '^NAME\|^VERSION' /etc/os-release | sed 's/.*=//' | head -1)
+  else
+      # Fallback to uname -o if /etc/os-release is not found
+      OSKIND=$(uname -o)
+  fi
+
   if [[ "$OSKIND" == *"Darwin"* ]]; then
     # macOS specific
     brew install ansible
