@@ -1,0 +1,67 @@
+#SPDX-License-Identifier: MIT-0
+# vars file for ubuntu-setup
+---
+packages:
+  - htop
+  - net-tools
+  - python3-poetry
+  - python3-pygments
+  - ripgrep
+  - fd-find
+  - solaar
+  - logiops
+  - gnome-shell-extensions
+  - earlyoom
+  - fzf
+  - gnome-tweaks
+  - vim-gui-common
+  - vim-runtime
+  - xclip
+  - vim-enhanced
+  - pipx
+  - python-devel
+  - rust
+  - cargo
+  - dnf-plugins-core
+
+flatpaks:
+  - org.signal.Signal
+  - org.gnome.DejaDup
+  - org.telegram.desktop
+  - org.gnome.Extensions
+  - com.github.tchx84.Flatseal
+  - com.github.johnfactotum.Foliate
+  - com.ktechpit.whatsie
+
+snaps:
+  - code
+  - telegram-desktop
+  - signal-desktop
+  - whatsie
+  - foliate
+  - nvim
+
+zsh_plugins:
+  - zsh-autosuggestions
+  - zsh-completions
+
+brews:
+  - zsh
+  - curl
+  - htop
+  - python3
+  - pygments
+  - ripgrep
+  - ffind
+  - fd
+  - fzf
+  - pipx
+
+pipx_packages:
+  - git+https://github.com/Pennyw0rth/NetExec
+
+# vscode_version: 863d2581ecda6849923a2118d93a088b0745d9d6
+vscode_deb: code_latest.deb
+# vscode_checksum: sha256:3340b2649e486adfde2452418599acb64c1dc3998087d715d244f10302a89b94
+
+value_for_gpg: "yes"

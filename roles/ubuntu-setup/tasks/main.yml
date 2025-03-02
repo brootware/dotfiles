@@ -1,0 +1,84 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for ubuntu-setup
+- name: Install zsh plugins
+  ansible.builtin.git:
+    repo: "https://github.com/zsh-users/{{ item }}.git"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/{{ item }}"
+    clone: yes
+  with_items: "{{ zsh_plugins }}"
+
+- name: Install personalised ubuntu apt packages.
+  ansible.builtin.package:
+    state: present
+    name: "{{ item }}"
+  with_items: "{{ packages }}"
+  ignore_errors: true
+  become: true
+
+- name: Download vscode directly from source for linux mint.
+  ansible.builtin.get_url:
+    url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    dest: "/tmp/{{ vscode_deb }}"
+  become: true
+  when: ansible_facts['distribution'] == 'Linux Mint'
+
+- name: Install downloaded vscode for Linux Mint.
+  ansible.builtin.apt:
+    state: present
+    deb: "/tmp/{{ vscode_deb }}"
+    update_cache: yes
+  become: true
+  when: ansible_facts['distribution'] == 'Linux Mint'
+
+- name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
+  community.general.flatpak:
+    state: present
+    method: system
+    name: "{{ item }}"
+  with_items: "{{ flatpaks }}"
+  when: ansible_facts['distribution'] == 'Linux Mint'
+  ignore_errors: true
+  become: true
+
+- name: Install personalised snap packages. (Will fail if you are on linux mint and do not have snap package manager installed.)
+  community.general.snap:
+    state: present
+    classic: true
+    name: "{{ item }}"
+  with_items: "{{ snaps }}"
+  when: ansible_facts['distribution'] == 'Ubuntu'
+  ignore_errors: true
+  become: true
+
+- name: Replace GRUB_DEFAULT line in /etc/default/grub.
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_DEFAULT='
+    line: 'GRUB_DEFAULT=saved'
+  become: true
+
+- name: Edit grub to remember last choice of grub OS boot menu.
+  blockinfile:
+    path: /etc/default/grub
+    block: |
+      # Remember last choice of OS boot functionality
+      GRUB_SAVEDEFAULT=true
+    insertafter: EOF
+  become: true
+
+- name: Update Grub configuration for Debian.
+  command: update-grub
+  become: true
+  when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'Linux Mint'
+
+- name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
+  lineinfile:
+    path: /etc/bluetooth/input.conf
+    regexp: '^#IdleTimeout=30'
+    line: 'IdleTimeout=15'
+  become: true
+
+- name: Update bluetooth service configuration.
+  command: systemctl restart bluetooth.service
+  become: true
