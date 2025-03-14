@@ -90,3 +90,6 @@ export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 # added path for go binary
 export PATH=$PATH:/usr/local/go/bin
+
+# added path for rust binary
+export PATH=$PATH:~/.cargo/bin
