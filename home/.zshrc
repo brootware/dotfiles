@@ -88,5 +88,10 @@ export PATH=$PATH:~/.local/bin
 # Use virtualbox as default provider for vagrant
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
-# added path for go binary
+# add path for go binary
 export PATH=$PATH:/usr/local/go/bin
+
+# add path for cargo
+export PATH=$PATH:~/.cargo/bin
+# added path for rust binary
+export PATH=$PATH:~/.cargo/bin

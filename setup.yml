@@ -1,0 +1,13 @@
+---
+- name: Determine Operating System and Run Appropriate Setup Playbook
+  hosts: localhost
+  become: True
+  roles:
+    - role: ubuntu-setup
+      when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'Linux Mint'
+
+    - role: mac-setup
+      when: ansible_facts['distribution'] == 'MacOSX'
+
+    - role: fedora-setup
+      when: ansible_facts['distribution'] == 'RedHat'
