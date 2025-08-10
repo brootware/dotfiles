@@ -36,6 +36,7 @@ function install_dotfiles {
 	  sudo apt-get install -y pipx
     pipx install ansible-core
     pipx ensurepath
+    ansible-galaxy collection install community.general
     ansible-playbook setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"Fedora"* ]]; then
 	  sudo dnf install -y ansible
