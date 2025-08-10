@@ -37,6 +37,7 @@ flatpaks:
 
 snaps:
   - code
+  - deja-dup
   - telegram-desktop
   - signal-desktop
   - whatsie
