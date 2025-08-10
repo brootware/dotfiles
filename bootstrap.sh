@@ -35,11 +35,11 @@ function install_dotfiles {
   elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
 	  sudo apt-get install -y ansible
     ansible-galaxy collection install community.general
-    ansible-playbook setup.yml --ask-become-pass
+    ansible-playbook dotbootstrap/debian_linux_setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"Fedora"* ]]; then
 	  sudo dnf install -y ansible
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    ansible-playbook setup.yml --ask-become-pass
+    ansible-playbook dotbootstrap/rpm_linu_setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; then
     # Do nothing if it's all these to continue installing dotfiles and configure git details
     return 0
