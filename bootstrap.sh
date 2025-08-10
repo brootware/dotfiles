@@ -33,9 +33,7 @@ function install_dotfiles {
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
-	  sudo apt-get install -y pipx
-    pipx install ansible-core
-    pipx ensurepath
+	  sudo apt-get install -y ansible
     ansible-galaxy collection install community.general
     ansible-playbook setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"Fedora"* ]]; then
