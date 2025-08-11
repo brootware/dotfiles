@@ -20,7 +20,6 @@ packages:
   - gns3-server 
   - gns3-gui
   - vim-enhanced
-  - pipx
   - python-devel
   - rust
   - cargo
