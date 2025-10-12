@@ -3,7 +3,7 @@
 set rnu
   
 " Enable syntax highlighting
-" syntax on
+syntax on
 
 " Escape on kj keybinding
 :imap kj <Esc>
