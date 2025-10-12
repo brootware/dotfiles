@@ -28,18 +28,18 @@ function install_dotfiles {
   if [[ "$OSKIND" == *"Darwin"* ]]; then
     # macOS specific
     brew install pipx
-    pipx install ansible-core
+    pipx install --include-deps ansible
     pipx ensurepath
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
 	  sudo apt-get install -y pipx
-    pipx install ansible-core
+    pipx install --include-deps ansible
     pipx ensurepath
     ansible-playbook dotbootstrap/debian_linux_setup.yml --ask-become-pass
   elif [[ "$OSKIND" == *"Fedora"* ]]; then
 	  sudo dnf install -y pipx
-    pipx install ansible-core
+    pipx install --include-deps ansible
     pipx ensurepath
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     ansible-playbook dotbootstrap/rpm_linu_setup.yml --ask-become-pass
