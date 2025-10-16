@@ -8,21 +8,29 @@ My personal dotfiles to automate installing all the aliases and zsh configuratio
 Install Zsh and OhMyZsh for Ubuntu or Debian based distros.
 
 ```bash
-sudo apt install zsh curl git -y
+sudo apt install zsh curl git pipx -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+pipx install --include-deps ansible
+pipx ensurepath
 ```
 
 For Red Hat, rpm based distros.
 
 ```bash
-sudo dnf install zsh curl git -y
+sudo dnf install zsh curl git pipx -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+pipx install --include-deps ansible
+pipx ensurepath
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
 
 Install Homebrew for MacOS
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install pipx
+pipx install --include-deps ansible
+pipx ensurepath
 ```
 
 ### To install the dotfiles
