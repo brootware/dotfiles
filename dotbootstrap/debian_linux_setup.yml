@@ -117,10 +117,10 @@
           when: earlyoom_stat.stat.exists
           notify: Restart earlyoom
 
-      handlers:
-        - name: Restart earlyoom
-          ansible.builtin.service:
-            name: earlyoom
-            state: restarted
-          when: earlyoom_stat.stat.exists  
-          become: true
+  handlers:
+    - name: Restart earlyoom
+      ansible.builtin.service:
+        name: earlyoom
+        state: restarted
+      when: earlyoom_stat.stat.exists  
+      become: true
