@@ -1,5 +1,6 @@
 ---
 packages:
+  - curl
   - htop
   - net-tools
   - python3-poetry
@@ -24,6 +25,7 @@ packages:
   - rust
   - cargo
   - dnf-plugins-core
+  - brave-browser
 
 flatpaks:
   - org.signal.Signal
@@ -33,7 +35,6 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - com.github.johnfactotum.Foliate
   - com.ktechpit.whatsie
-  - com.brave.Browser
 
 snaps:
   - code
