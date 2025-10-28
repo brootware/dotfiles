@@ -96,19 +96,6 @@
             name: bluetooth
             state: restarted
 
-        - name: Add Brave repository
-          ansible.builtin.shell:
-            cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-
-        - name: Import Brave repository key
-          ansible.builtin.shell:
-            cmd: rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
-        - name: Install Brave browser
-          ansible.builtin.package:
-            name: brave-browser
-            state: present
-
         - name: Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
           lineinfile:
             path: /usr/share/applications/brave-browser.desktop
