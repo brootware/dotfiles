@@ -40,13 +40,12 @@
             url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
             dest: /etc/apt/sources.list.d/brave-browser-release.sources
             mode: '0644'
-            
+
         - name: Install personalised ubuntu apt packages.
           ansible.builtin.apt:
             state: present
-            name: "{{ item }}"
+            name: "{{ packages }}"
             update_cache: true
-          with_items: "{{ packages }}"
           ignore_errors: true
 
         - name: Download vscode directly from source for linux mint.
@@ -66,8 +65,7 @@
           community.general.flatpak:
             state: present
             method: system
-            name: "{{ item }}"
-          with_items: "{{ flatpaks }}"
+            name: "{{ flatpaks }}"
           when: ansible_facts['distribution'] == 'Linux Mint'
           ignore_errors: true
 
@@ -75,8 +73,7 @@
           community.general.snap:
             state: present
             classic: true
-            name: "{{ item }}"
-          with_items: "{{ snaps }}"
+            name: "{{ snaps }}"
           when: ansible_facts['distribution'] == 'Ubuntu'
           ignore_errors: true
 
