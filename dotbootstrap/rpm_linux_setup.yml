@@ -72,10 +72,10 @@
       become: true
 
     - name: Install personalised fedora dnf packages.
-      ansible.builtin.package:
+      ansible.builtin.dnf:
         state: present
-        name: "{{ item }}"
-      with_items: "{{ packages }}"
+        name: "{{ packages }}"
+        update_cache: true
       ignore_errors: true
       become: true
 
@@ -83,8 +83,7 @@
       community.general.flatpak:
         state: present
         method: system
-        name: "{{ item }}"
-      with_items: "{{ flatpaks }}"
+        name: "{{ flatpaks }}"
       ignore_errors: true
       become: true
     
