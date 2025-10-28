@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: true
-  become: true
+  
   tasks:
     - name: Include vars of global_vars.yml file.
       include_vars:
@@ -32,12 +32,14 @@
         name: "{{ item }}"
       with_items: "{{ packages }}"
       ignore_errors: true
+      become: true
 
     - name: Download vscode directly from source for linux mint.
       ansible.builtin.get_url:
         url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
         dest: "/tmp/{{ vscode_deb }}"
       when: ansible_facts['distribution'] == 'Linux Mint'
+      become: true
 
     - name: Install downloaded vscode for Linux Mint.
       ansible.builtin.apt:
@@ -45,6 +47,7 @@
         deb: "/tmp/{{ vscode_deb }}"
         update_cache: yes
       when: ansible_facts['distribution'] == 'Linux Mint'
+      become: true
 
     - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
       community.general.flatpak:
@@ -54,6 +57,7 @@
       with_items: "{{ flatpaks }}"
       when: ansible_facts['distribution'] == 'Linux Mint'
       ignore_errors: true
+      become: true
 
     - name: Install personalised snap packages. (Will fail if you are on linux mint and do not have snap package manager installed.)
       community.general.snap:
@@ -63,12 +67,14 @@
       with_items: "{{ snaps }}"
       when: ansible_facts['distribution'] == 'Ubuntu'
       ignore_errors: true
+      become: true
 
     - name: Replace GRUB_DEFAULT line in /etc/default/grub.
       lineinfile:
         path: /etc/default/grub
         regexp: '^GRUB_DEFAULT='
         line: 'GRUB_DEFAULT=saved'
+      become: true
 
     - name: Edit grub to remember last choice of grub OS boot menu.
       blockinfile:
@@ -77,44 +83,54 @@
           # Remember last choice of OS boot functionality
           GRUB_SAVEDEFAULT=true
         insertafter: EOF
+      become: true
     
     - name: Update Grub configuration for Debian.
       command: update-grub
-      become: true
       when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'Linux Mint'
+      become: true
 
     - name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
       lineinfile:
         path: /etc/bluetooth/input.conf
         regexp: '^#IdleTimeout=30'
         line: 'IdleTimeout=15'
+      become: true
 
     - name: Update bluetooth service configuration.
-      command: systemctl restart bluetooth.service
+      ansible.builtin.service:
+        name: bluetooth
+        state: restarted
+      become: true
 
     - name: Add Brave repository
       ansible.builtin.shell:
         cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+      become: true
 
     - name: Import Brave repository key
       ansible.builtin.shell:
         cmd: rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+      become: true
 
     - name: Install Brave browser
       ansible.builtin.package:
         name: brave-browser
         state: present
+      become: true
 
     - name: Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
       lineinfile:
         path: /usr/share/applications/brave-browser.desktop
         regexp: '^Exec=/usr/bin/brave-browser-stable %U$'
         line: 'Exec=/usr/bin/brave-browser-stable %U --ozone-platform=wayland --enable-features=TouchpadOverscrollHistoryNavigation'
+      become: true
 
     - name: Check if earlyoom config file exists
       ansible.builtin.stat:
         path: /etc/default/earlyoom
       register: earlyoom_stat
+      become: true
 
     - name: Update EARLYOOM_ARGS in /etc/default/earlyoom customized for vscode 61696 crash https://github.com/rfjakob/earlyoom/issues/240
       ansible.builtin.lineinfile:
@@ -125,10 +141,12 @@
         backup: yes
       when: earlyoom_stat.stat.exists
       notify: Restart earlyoom
+      become: true
 
   handlers:
     - name: Restart earlyoom
       ansible.builtin.service:
         name: earlyoom
         state: restarted
-      when: earlyoom_stat.stat.exists
+      when: earlyoom_stat.stat.exists  
+      become: true
