@@ -138,3 +138,4 @@
         name: earlyoom
         state: restarted
       when: earlyoom_stat.stat.exists
+      become: true
