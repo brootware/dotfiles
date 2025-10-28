@@ -30,122 +30,107 @@
         clone: yes
       with_items: "{{ zsh_plugins }}"
 
-    - name: Replace GRUB_DEFAULT line in /etc/default/grub.
-      lineinfile:
-        path: /etc/default/grub
-        regexp: '^GRUB_DEFAULT='
-        line: 'GRUB_DEFAULT=saved'
+    - name: Tasks that needs to be done as root
       become: true
+      block:
+        - name: Replace GRUB_DEFAULT line in /etc/default/grub.
+          lineinfile:
+            path: /etc/default/grub
+            regexp: '^GRUB_DEFAULT='
+            line: 'GRUB_DEFAULT=saved'
 
-    - name: Edit grub to remember last choice of grub OS boot menu.
-      blockinfile:
-        path: /etc/default/grub
-        block: |
-          # Remember last choice of OS boot functionality
-          GRUB_SAVEDEFAULT=true
-        insertafter: EOF
-      become: true
+        - name: Edit grub to remember last choice of grub OS boot menu.
+          blockinfile:
+            path: /etc/default/grub
+            block: |
+              # Remember last choice of OS boot functionality
+              GRUB_SAVEDEFAULT=true
+            insertafter: EOF
 
-    - name: Update Grub configuration for Fedora.
-      command: grub2-mkconfig -o /boot/grub2/grub.cfg
-      become: true
+        - name: Update Grub configuration for Fedora.
+          command: grub2-mkconfig -o /boot/grub2/grub.cfg
 
-    - name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
-      lineinfile:
-        path: /etc/bluetooth/input.conf
-        regexp: '^#IdleTimeout=30'
-        line: 'IdleTimeout=15'
-      become: true
+        - name: Set bluetooth idle timeout to 15 minutes. https://askubuntu.com/questions/1264725/how-to-disable-bluetooth-power-saving
+          lineinfile:
+            path: /etc/bluetooth/input.conf
+            regexp: '^#IdleTimeout=30'
+            line: 'IdleTimeout=15'
 
-    - name: Update bluetooth service configuration.
-      command: systemctl restart bluetooth.service
-      become: true
+        - name: Update bluetooth service configuration.
+          command: systemctl restart bluetooth.service
 
-    - name: Edit dnf config to make it faster.
-      blockinfile:
-        path: /etc/dnf/dnf.conf
-        block: |
-          fastestmirror=True
-          max_parallel_downloads=10
-          keepcache=True
-        insertafter: EOF
-      become: true
+        - name: Edit dnf config to make it faster.
+          blockinfile:
+            path: /etc/dnf/dnf.conf
+            block: |
+              fastestmirror=True
+              max_parallel_downloads=10
+              keepcache=True
+            insertafter: EOF
 
-    - name: Install personalised fedora dnf packages.
-      ansible.builtin.dnf:
-        state: present
-        name: "{{ packages }}"
-        update_cache: true
-        cache_valid_time: 86400
-      ignore_errors: true
-      become: true
+        - name: Add the Brave Browser repository
+          ansible.builtin.yum_repository:
+            name: brave-browser
+            description: Brave Browser YUM repo
+            baseurl: https://brave-browser-rpm-release.s3.brave.com/x86_64/
+            gpgkey: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+            enabled: yes
+            gpgcheck: yes
+            state: present
 
-    - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
-      community.general.flatpak:
-        state: present
-        method: system
-        name: "{{ flatpaks }}"
-      ignore_errors: true
-      become: true
-    
-    - name: Download vscode directly from source for fedora.
-      ansible.builtin.get_url:
-        url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64"
-        dest: "/tmp/{{ vscode_rpm }}"
-      become: true
+        - name: Install personalised fedora dnf packages.
+          ansible.builtin.dnf:
+            state: present
+            name: "{{ packages }}"
+            update_cache: true
+            cache_valid_time: 86400
+          ignore_errors: true
 
-    - name: Install downloaded vscode.
-      ansible.builtin.package:
-        state: present
-        name: "/tmp/{{ vscode_rpm }}"
-        disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
-      become: true
+        - name: Install personalised flatpak packages. (Will fail if you are on ubuntu and do not have flatpak manager installed.)
+          community.general.flatpak:
+            state: present
+            method: system
+            name: "{{ flatpaks }}"
+          ignore_errors: true
+        
+        - name: Download vscode directly from source for fedora.
+          ansible.builtin.get_url:
+            url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64"
+            dest: "/tmp/{{ vscode_rpm }}"
 
-    - name: Install needed pipx packages.
-      community.general.pipx:
-        state: present
-        name: "{{ item }}"
-      with_items: "{{ pipx_packages }}"
-      ignore_errors: true
-      become: true
+        - name: Install downloaded vscode.
+          ansible.builtin.package:
+            state: present
+            name: "/tmp/{{ vscode_rpm }}"
+            disable_gpg_check: "{{ value_for_gpg | d(omit) }}"
 
-    - name: Add Brave repository
-      ansible.builtin.shell:
-        cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-      become: true
+        - name: Install needed pipx packages.
+          community.general.pipx:
+            state: present
+            name: "{{ item }}"
+          with_items: "{{ pipx_packages }}"
+          ignore_errors: true
 
-    - name: Import Brave repository key
-      ansible.builtin.shell:
-        cmd: rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-      become: true
+        - name: Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
+          lineinfile:
+            path: /usr/share/applications/brave-browser.desktop
+            regexp: '^Exec=/usr/bin/brave-browser-stable %U$'
+            line: 'Exec=/usr/bin/brave-browser-stable %U --ozone-platform=wayland --enable-features=TouchpadOverscrollHistoryNavigation'
 
-    - name: Install Brave browser
-      ansible.builtin.package:
-        name: brave-browser
-        state: present
-      become: true
+        - name: Check if earlyoom config file exists
+          ansible.builtin.stat:
+            path: /etc/default/earlyoom
+          register: earlyoom_stat
 
-    - name: Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
-      lineinfile:
-        path: /usr/share/applications/brave-browser.desktop
-        regexp: '^Exec=/usr/bin/brave-browser-stable %U$'
-        line: 'Exec=/usr/bin/brave-browser-stable %U --ozone-platform=wayland --enable-features=TouchpadOverscrollHistoryNavigation'
-      become: true
-
-    - name: Check if earlyoom config file exists
-      ansible.builtin.stat:
-        path: /etc/default/earlyoom
-      register: earlyoom_stat
-
-    - name: Update EARLYOOM_ARGS in /etc/default/earlyoom customized for vscode 61696 crash https://github.com/rfjakob/earlyoom/issues/240
-      ansible.builtin.lineinfile:
-        path: /etc/default/earlyoom
-        regexp: '^EARLYOOM_ARGS='
-        line: 'EARLYOOM_ARGS="-r 0 -m 4 -M 409600 --prefer ''^Web Content$'' --avoid ''^(apt|code|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-session|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|xfce4-session|mate-session|marco|lxqt-session|openbox)$'''
-        state: present
-        backup: yes
-      when: earlyoom_stat.stat.exists
-      notify: Restart earlyoom
+        - name: Update EARLYOOM_ARGS in /etc/default/earlyoom customized for vscode 61696 crash https://github.com/rfjakob/earlyoom/issues/240
+          ansible.builtin.lineinfile:
+            path: /etc/default/earlyoom
+            regexp: '^EARLYOOM_ARGS='
+            line: 'EARLYOOM_ARGS="-r 0 -m 4 -M 409600 --prefer ''^Web Content$'' --avoid ''^(apt|code|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-session|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|xfce4-session|mate-session|marco|lxqt-session|openbox)$'''
+            state: present
+            backup: yes
+          when: earlyoom_stat.stat.exists
+          notify: Restart earlyoom
 
   handlers:
     - name: Restart earlyoom
