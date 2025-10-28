@@ -76,6 +76,7 @@
         state: present
         name: "{{ packages }}"
         update_cache: true
+        cache_valid_time: 86400
       ignore_errors: true
       become: true
 
