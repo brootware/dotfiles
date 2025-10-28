@@ -44,8 +44,9 @@
         - name: Install personalised ubuntu apt packages.
           ansible.builtin.apt:
             state: present
-            name: "{{ packages }}"
+            name: "{{ item }}"
             update_cache: true
+          with_items: "{{ packages }}"
           ignore_errors: true
 
         - name: Download vscode directly from source for linux mint.
