@@ -34,7 +34,7 @@ flatpaks:
   - org.gnome.Extensions
   - com.github.tchx84.Flatseal
   - com.github.johnfactotum.Foliate
-  - com.ktechpit.whatsie
+  - com.rtosta.zapzap
 
 snaps:
   - code
