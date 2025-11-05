@@ -123,7 +123,7 @@
           ansible.builtin.lineinfile:
             path: /etc/default/earlyoom
             regexp: '^EARLYOOM_ARGS='
-            line: 'EARLYOOM_ARGS="-r 0 -m 4 -M 409600 --prefer ''^Web Content$'' --avoid ''^(apt|code|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-session|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|xfce4-session|mate-session|marco|lxqt-session|openbox)$'''
+            line: 'EARLYOOM_ARGS="-r 0 -m 4 -M 409600 --prefer ''^Web Content$'' --avoid ''^(apt|packagekitd|gnome-shell|gnome-session-c|gnome-session-b|lightdm|sddm|sddm-helper|gdm|gdm-wayland-ses|gdm-session-wor|gdm-x-session|Xorg|Xwayland|systemd|systemd-logind|dbus-daemon|dbus-broker|cinnamon|cinnamon-session|kwin_x11|kwin_wayland|plasmashell|ksmserver|plasma_session|startplasma-way|xfce4-session|mate-session|marco|lxqt-session|openbox)$'''
             state: present
             backup: yes
           when: earlyoom_stat.stat.exists
