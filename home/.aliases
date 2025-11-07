@@ -76,7 +76,7 @@ alias aliases="code ~/.aliases"
 alias python=python3
 
 # List connected usb device speed
-alias usbspeed=lsusb -vvv | grep -i -B5 -A5 bcdUSB
+alias usbspeed="lsusb -vvv | grep -i -B5 -A5 bcdUSB"
 
 
 if [[ $(uname) == *Darwin* ]]; then
