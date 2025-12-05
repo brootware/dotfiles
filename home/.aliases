@@ -55,7 +55,6 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # IP addresses
-alias pubip="wget -qO- https://ipinfo.io"
 alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ips="sudo ifconfig -a | grep -o 'inet6\\? \\(addr:\\)\\?\\s\\?\\(\\(\\([0-9]\\+\\.\\)\\{3\\}[0-9]\\+\\)\\|[a-fA-F0-9:]\\+\\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
@@ -99,6 +98,7 @@ if [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; th
     alias pubkey="more ~/.ssh/id_ed25519.pub | clip.exe | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="explorer.exe ."
+    alias pubip="wget -qO- https://ipinfo.io"
 elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Fedora"* ]]; then
     # Ubuntu specific commands
     # Router IP address
@@ -109,6 +109,7 @@ elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Fedora"* ]]; then
     alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
     # Open Explorer in current folder
     alias explorer="nautilus ."
+    alias pubip="wget -qO- https://ipinfo.io"
 elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
     # Linux mint specific commands
     alias explorer="nemo ."
@@ -118,8 +119,10 @@ elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
     alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
     # Pipe my public key to my clipboard.
     alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
+    alias pubip="wget -qO- https://ipinfo.io"
 elif [[ "$OSKIND" == *"Darwin"* ]]; then
     return 0
+    alias pubip="curl -qO- https://ipinfo.io"
 else
     echo "Alias has unsupported operating system: $OSKIND."
 fi
