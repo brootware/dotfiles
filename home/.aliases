@@ -121,8 +121,7 @@ elif [[ "$OSKIND" == *"Linux Mint"* ]]; then
     alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
     alias pubip="wget -qO- https://ipinfo.io"
 elif [[ "$OSKIND" == *"Darwin"* ]]; then
-    return 0
-    alias pubip="curl -qO- https://ipinfo.io"
+    alias pubip="curl https://ipinfo.io"
 else
     echo "Alias has unsupported operating system: $OSKIND."
 fi
