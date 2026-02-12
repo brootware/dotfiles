@@ -10,12 +10,23 @@ function install_dotfiles {
   mv $HOME/.gitconfig $HOME/orignaldotfiles/.
   echo "Current dotfiles have been backed up to originaldotfiles/ folder in home directory."
 
+
   # Clone zsh-autosuggestion repo into local zsh plugin directory for use
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 
   # Clone dotfiles repo and navigate into it
   git clone https://github.com/brootware/dotfiles.git && cd dotfiles
+
+    # Install dotfiles for all os kinds
+  ./install
+
+  # Set git config author details
+  git config --global user.email "$(whoami)@$(hostname).com" 
+  git config --global user.name "$(whoami)"
+
+  # Ensure aliases are recognized after install
+  source ~/.zshrc
 
   # Try to get OS kind from /etc/os-release
   if [ -f /etc/os-release ]; then
@@ -40,13 +51,6 @@ function install_dotfiles {
     echo -e "\nUnsupported operating system: $OSKIND. This installation is only available on Ubuntu/Linux Mint, Mac OS and WSL2."
     exit 1
   fi
-
-  # Install dotfiles for all os kinds
-  ./install
-
-  # Set git config author details
-  git config --global user.email "$(whoami)@$(hostname).com" 
-  git config --global user.name "$(whoami)"
 }
 
 function save_current_config {
