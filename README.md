@@ -14,6 +14,12 @@ pipx install --include-deps ansible
 pipx ensurepath
 ```
 
+A bit more configuration for latest Ubuntu 26.04 LTS Dekstop. Set root password
+
+```bash
+sudo passwd root
+```
+
 For Red Hat, rpm based distros.
 
 ```bash
@@ -41,6 +47,7 @@ Ensure you installed `curl` and `git` first and run the bootstrap installation s
 ```bash
 curl https://raw.githubusercontent.com/brootware/dotfiles/main/bootstrap.sh > bootstrap.sh && chmod +x bootstrap.sh
 ./bootstrap.sh -i
+# For BECOME PASS supply the root password on ubuntu 26.04 LTS Desktop
 ```
 
 OR, you can download the git repo and install as instructed below.
