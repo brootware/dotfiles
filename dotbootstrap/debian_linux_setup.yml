@@ -3,7 +3,6 @@
   hosts: localhost
   connection: local
   gather_facts: true
-  become: true
   
   tasks:
     - name: Include vars of global_vars.yml file.
@@ -28,20 +27,21 @@
       with_items: "{{ zsh_plugins }}"
 
     - name: Tasks that needs to be done as root.
+      become: true
       block:
-        # - name: Download Brave browser GPG keyring
-        #   ansible.builtin.get_url:
-        #     url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-        #     dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
-        #     mode: '0644'
-        #   ignore_errors: true
+        - name: Download Brave browser GPG keyring
+          ansible.builtin.get_url:
+            url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+            dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+            mode: '0644'
+          ignore_errors: true
 
-        # - name: Add Brave browser APT sources
-        #   ansible.builtin.get_url:
-        #     url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
-        #     dest: /etc/apt/sources.list.d/brave-browser-release.sources
-        #     mode: '0644'
-        #   ignore_errors: true
+        - name: Add Brave browser APT sources
+          ansible.builtin.get_url:
+            url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+            dest: /etc/apt/sources.list.d/brave-browser-release.sources
+            mode: '0644'
+          ignore_errors: true
 
         - name: Install personalised ubuntu apt packages.
           ansible.builtin.apt:
