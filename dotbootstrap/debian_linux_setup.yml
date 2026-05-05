@@ -3,6 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: true
+  become: true
   
   tasks:
     - name: Include vars of global_vars.yml file.
@@ -27,7 +28,6 @@
       with_items: "{{ zsh_plugins }}"
 
     - name: Tasks that needs to be done as root.
-      become: true
       block:
         # - name: Download Brave browser GPG keyring
         #   ansible.builtin.get_url:
