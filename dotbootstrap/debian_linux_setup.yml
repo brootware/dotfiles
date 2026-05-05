@@ -110,12 +110,6 @@
             name: bluetooth
             state: restarted
 
-        - name: Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
-          lineinfile:
-            path: /usr/share/applications/brave-browser.desktop
-            regexp: '^Exec=/usr/bin/brave-browser-stable %U$'
-            line: 'Exec=/usr/bin/brave-browser-stable %U --ozone-platform=wayland --enable-features=TouchpadOverscrollHistoryNavigation'
-
         - name: Check if earlyoom config file exists
           ansible.builtin.stat:
             path: /etc/default/earlyoom
@@ -130,6 +124,20 @@
             backup: yes
           when: earlyoom_stat.stat.exists
           notify: Restart earlyoom
+
+    - name: DEB version | Install personalised snap packages. (Will fail if you are on linux mint and do not have snap package manager installed.)
+      community.general.snap:
+        state: present
+        classic: true
+        name: "{{ snaps }}"
+      when: ansible_facts['distribution'] == 'Ubuntu'
+
+    - name: SNAP version | Replace line in brave-browser.desktop file to enable 2 fingers swipe back and forth gesture. https://gist.github.com/detherminal/1845c794ee3f3cdcc4e7eb713e9ee6fd
+      lineinfile:
+        path: /var/lib/snapd/desktop/applications/brave-browser.desktop
+        regexp: '^Exec=/usr/bin/brave-browser-stable %U$'
+        line: 'Exec=/usr/bin/brave-browser-stable %U --ozone-platform=wayland --enable-features=TouchpadOverscrollHistoryNavigation'
+      when: ansible_facts['distribution'] == 'Ubuntu'
 
   handlers:
     - name: Restart earlyoom
