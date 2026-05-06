@@ -41,9 +41,9 @@ function install_dotfiles {
     ansible-playbook dotbootstrap/mac_setup.yml --ask-become-pass 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   elif [[ "$OSKIND" == *"Ubuntu"* ]] || [[ "$OSKIND" == *"Linux Mint"* ]]; then
-    ansible-playbook dotbootstrap/debian_linux_setup.yml --ask-become-pass
+    ansible-playbook dotbootstrap/debian_linux_setup.yml -K -vv --become-method=su
   elif [[ "$OSKIND" == *"Fedora"* ]]; then
-    ansible-playbook dotbootstrap/rpm_linux_setup.yml --ask-become-pass
+    ansible-playbook dotbootstrap/rpm_linux_setup.yml -K -vv --become-method=su
   elif [[ "$OSKIND" == *"microsoft"* ]] || [[ "$OSKIND" == *"Kali GNU/Linux"* ]]; then
     # Do nothing if it's microsoft wsl or kali to continue installing dotfiles and configure git details
     return 0
