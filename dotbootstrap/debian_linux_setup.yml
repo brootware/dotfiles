@@ -17,6 +17,24 @@
       ansible.builtin.debug:
         msg: "Hello {{ remote_regular_user }}!"
 
+    - name: Tasks to work around ansible become on ubuntu 26. https://www.reddit.com/r/ansible/comments/1t6ie61/comment/okmoiv5/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+      block:
+        - name: Find the absolute path of the sudo binary
+          ansible.builtin.command: which sudo
+          register: sudo_path
+          changed_when: false
+          when: ansible_facts['distribution'] == "Ubuntu"
+
+        - name: Configure sudo privilege escalation for Ubuntu
+          ansible.builtin.blockinfile:
+            path: "{{ ansible_facts['env']['HOME']  }}/.ansible.cfg"
+            create: yes
+            mode: '0644'
+            block: |
+              [privilege_escalation]
+              become_exe = {{ sudo_path.stdout }}
+          when: ansible_facts['distribution'] == "Ubuntu" and sudo_path.rc == 0
+
     # Clone zsh-autosuggestion repo into local zsh plugin directory for use
     # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     - name: Install zsh plugins
