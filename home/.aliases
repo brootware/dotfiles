@@ -73,7 +73,6 @@ alias aliases="code ~/.aliases"
 
 # alias python to python3
 alias python=python3
-alias pip=pip3
 
 # List connected usb device speed
 alias usbspeed="lsusb -vvv | grep -i -B5 -A5 bcdUSB"
