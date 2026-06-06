@@ -1,3 +1,8 @@
+" Mode: Normal. Saves and runs when you press comma then p.
+autocmd FileType python nnoremap <buffer> ,p :w<CR>:!python3 %<CR>
+
+" Mode: Insert. Saves and runs directly while typing.
+autocmd FileType python inoremap <buffer> ,p <Esc>:w<CR>:!python3 %<CR>
 
 " Set to show line numbers
 set rnu
