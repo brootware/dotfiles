@@ -1,5 +1,5 @@
 " Mode: Normal. Saves and runs when you press comma then p.
-autocmd FileType python nnoremap <buffer> ,p :w<CR>:!clear && python3 %<CR>
+autocmd FileType python nnoremap <buffer> ,p :w<CR>:!clear && python3 %
 
 " Mode: Insert. Saves and runs directly while typing.
 autocmd FileType python inoremap <buffer> ,p <Esc>:w<CR>:!python3 %<CR>
